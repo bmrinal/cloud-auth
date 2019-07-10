@@ -1,0 +1,13 @@
+api:
+  api_key: Qqb9qWPkZ985p8neRsulib9yvDC2rKQo
+  user_name: agent_37af5304-1039-4d76-b610-f3bb7f8126b8@Telus
+  service_key: S9JXR90V1ILPX1BG
+  uri: https://app.contrastsecurity.com/
+agent: 
+  security_logger: 
+    level: OFF
+  auto_update: false
+protect: 
+  enable: false
+server:
+  environment: development
