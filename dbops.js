@@ -1,25 +1,29 @@
 module.exports = {
     insertUser:async (db,user)=>{
+        
+        //validations
+        if(user.email ==='' || user.password==='')
+        {
+            return 'invalid'
+        }
 
         //check duplicates
-        let existingEmails = await db.collection('users').find({email:user.email}).count();
-        let existingUsernames = await db.collection('users').find({username:user.username}).count();
+        const existingEmails = await db.collection('users').find({email:user.email}).count();
+        const existingUsernames = await db.collection('users').find({username:user.username}).count();
         
-        if(existingEmails ||(user.username!=='' && existingUsernames))
+        if(existingEmails || (user.username!=='' && existingUsernames))
         {
             return "duplicate"
         }
-        
-        await db.collection('users').insertOne(user,(err,result)=>{
-            if(!err)
-            {
-                return 'success'
+        else
+        {
+            try {
+                const dbResponse = await db.collection('users').insertOne(user);
+                return "success"
             }
-            else
-            {
-                return 'internal error'
+            catch(err){
+                return "internal error"
             }
-            
-        })
+        }
     }
 }

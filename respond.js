@@ -12,6 +12,17 @@ module.exports = {
         {
             res.status(503).send('Database Error')
         }
+        else if(response==='invalid')
+        {
+            res.status(400).send('Bad Request')
+        }
+
+    },
+    errors:(res,response)=>{
+        if(response==='invalid json')
+        {
+            res.status(400).send('Invalid JSON in the request')
+        }
 
     }
 }
