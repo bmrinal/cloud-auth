@@ -1,9 +1,11 @@
+const logger = require('./logger');
 module.exports = {
     insertUser:async (db,user)=>{
         
         //validations
         if(user.email ==='' || user.password==='')
         {
+            logger.db.error('Invalid/Blank email and/or password supplied')
             return 'invalid'
         }
 
@@ -13,16 +15,19 @@ module.exports = {
         
         if(existingEmails || (user.username!=='' && existingUsernames))
         {
+            logger.db.error("User already exists - "+ user.email);
             return "duplicate"
         }
         else
         {
             try {
                 const dbResponse = await db.collection('users').insertOne(user);
+                logger.db.info('User successfully Provisioned - '+ user.email);
                 return "success"
             }
             catch(err){
-                return "internal error"
+                logger.db.error(err);
+                return "internal error";
             }
         }
     }

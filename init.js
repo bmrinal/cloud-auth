@@ -1,15 +1,20 @@
-const mongo = require('./db');
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://mongo:27017'
+const client = new MongoClient(url,{ useNewUrlParser: true });
+const logger = require ('./logger');
 module.exports = (app) => {
-    mongo.connect().then((err)=>{
+
+    //connecting to db
+    client.connect((err,db)=>{
         if(!err)
         {
-            throw 'unable to connect to db'
+            app.set('db',client.db('fueleye'));
+            logger.db.info('Connected to database - fueleye')
+            app.emit('ready')
         }
         else
         {
-            const db = mongo.setDB('fueleye');
-            app.set('db',db);
-            app.emit('ready') 
+            logger.db.error(err);
         }
     })   
 }
