@@ -3,10 +3,14 @@ const helmet = require ('helmet');
 const bodyParser = require('body-parser');
 
 
-const respond = require('./respond'); //responder (formats and sends the appropriate response codes and responses to the client)
+const respond = require('./utils/respond'); //responder (formats and sends the appropriate response codes and responses to the client)
 const adapter = require('./adapter'); //data adapter 
 const dbops = require('./dbops'); //database operations
-const logger = require('./logger'); //winston logger
+const logger = require('./utils/logger'); //winston logger
+
+//custom middlewares
+const requestLogger = require('./middlewares/requestLogger');
+const bodyParserErrors = require('./middlewares/bodyParserErrors');
 
 //application port
 const port = 3000;
@@ -16,21 +20,10 @@ const port = 3000;
 app.use(helmet());
 
 app.use(bodyParser.json());
-//handles JSON parsing errors
-app.use(function (error, req, res, next) {
-    if (error instanceof SyntaxError) {
-        logger.access.error(error);
-        respond.errors(res, "invalid json");
-    } else {
-        next();
-    }
-});
+app.use(bodyParserErrors); //handles JSON parsing errors
 
 //logs all the accesses
-app.use((req,res,next)=>{
-    logger.access.info(req.method + " " +req.url);
-    next();
-}) 
+app.use(requestLogger); 
 
 //initializes the db connections and other bootstrapping
 const init = require('./init')(app);

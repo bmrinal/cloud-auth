@@ -1,7 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://mongo:27017'
 const client = new MongoClient(url,{ useNewUrlParser: true });
-const logger = require ('./logger');
+const logger = require ('./utils/logger');
+
 module.exports = (app) => {
 
     //connecting to db
@@ -18,4 +19,3 @@ module.exports = (app) => {
         }
     })   
 }
-

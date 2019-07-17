@@ -1,4 +1,4 @@
-const logger = require('./logger');
+const logger = require('./utils/logger');
 module.exports = {
     insertUser:async (db,user)=>{
         
@@ -15,14 +15,14 @@ module.exports = {
         
         if(existingEmails || (user.username!=='' && existingUsernames))
         {
-            logger.db.error("User already exists - "+ user.email);
+            logger.db.error(`User already exists -  ${user.email}`);
             return "duplicate"
         }
         else
         {
             try {
                 const dbResponse = await db.collection('users').insertOne(user);
-                logger.db.info('User successfully Provisioned - '+ user.email);
+                logger.db.info(`User successfully Provisioned -  ${user.email}`);
                 return "success"
             }
             catch(err){
