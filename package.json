@@ -1,5 +1,5 @@
 {
-  "name": "authservice",
+  "name": "cloud-auth",
   "version": "1.0.0",
   "description": "Handles signups, login, logout, session validation and recovery of credentials",
   "main": "index.js",
