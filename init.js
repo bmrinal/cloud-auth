@@ -9,7 +9,16 @@ module.exports = app => {
     if (!err) {
       app.set("db", client.db("fueleye"));
       logger.db.info("Connected to database - fueleye");
+
+
+      //setting connection termination on app close/abort/restart
+      process.on('SIGINT', () => {
+        MongoClient.close()
+      });
+
+      // AND we are ready - wrooooom!
       app.emit("ready");
+
     } else {
       logger.db.error(err);
     }
