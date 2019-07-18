@@ -6,6 +6,7 @@ const passport = require("passport");
 const respond = require("./utils/respond"); //responder (formats and sends the appropriate response codes and responses to the client)
 const adapter = require("./adapter"); //data adapter
 const dbops = require("./dbops"); //database operations
+const localstrategy = require("./passport-strategies/local");
 
 //custom middlewares
 const requestLogger = require("./middlewares/requestLogger");
