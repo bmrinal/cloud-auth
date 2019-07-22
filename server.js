@@ -6,7 +6,8 @@ const passport = require("passport");
 const respond = require("./utils/respond"); //responder (formats and sends the appropriate response codes and responses to the client)
 const adapter = require("./adapter"); //data adapter
 const dbops = require("./dbops"); //database operations
-const localstrategy = require("./passport-strategies/local");
+const localstrategy = require("./passport-strategies/local"); //passport localstrategy config
+const getToken = require("./utils/token-generator"); //JWT token generator
 
 //custom middlewares
 const requestLogger = require("./middlewares/requestLogger");
@@ -46,7 +47,7 @@ app.on("ready", () => {
     "/signin",
     passport.authenticate("local", { session: false }),
     (req, res, next) => {
-      res.send("Authenticated");
+      res.send({ success: true, token: getToken(req.user) });
     }
   );
 

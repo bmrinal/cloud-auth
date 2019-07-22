@@ -3,7 +3,8 @@ module.exports = {
     return {
       username: data.username || "",
       password: data.password || "",
-      email: data.email || ""
+      email: data.email || "",
+      roles: data.roles || []
     };
   }
 };
