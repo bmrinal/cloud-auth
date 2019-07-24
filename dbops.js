@@ -31,24 +31,23 @@ module.exports = {
       }
     }
   },
-  changeUserPassword: async (email,oldPassword,newPassword)=>{
-    const user = await db.collection('users').findOne({email:email});
-    if(user.password===oldPassword)
-    {
-      try{
-        await db.collection('users').findAndModify({email:email},[['email', 1]],{password:newPassword});
-        logger.db.info(`Password update successfully - ${email}`)
+  changeUserPassword: async (email, oldPassword, newPassword) => {
+    const user = await db.collection("users").findOne({ email: email });
+    if (user.password === oldPassword) {
+      try {
+        await db
+          .collection("users")
+          .findAndModify({ email: email }, [["email", 1]], {
+            password: newPassword
+          });
+        logger.db.info(`Password update successfully - ${email}`);
         return "success";
-      }
-      catch (err)
-      {
+      } catch (err) {
         logger.db.error(err);
         return "internal error";
-      }      
-    }
-    else
-    {
-      return 'invalid old password'
+      }
+    } else {
+      return "invalid old password";
     }
   }
 };
