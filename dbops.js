@@ -1,7 +1,7 @@
 const logger = require("./utils/logger");
 module.exports = {
   insertUser: async (db, user) => {
-    //validations
+    //validations TODO: SANITIZE INPUTS
     if (user.email === "" || user.password === "") {
       logger.db.error("Invalid/Blank email and/or password supplied");
       return "invalid";
@@ -31,15 +31,21 @@ module.exports = {
       }
     }
   },
-  changeUserPassword: async (email, oldPassword, newPassword) => {
+  changeUserPassword: async (db, email, oldPassword, newPassword) => {
+    //validations TODO: SANITIZE INPUTS
+    if (!email || !oldPassword || !newPassword) {
+      return "invalid";
+    }
+
     const user = await db.collection("users").findOne({ email: email });
-    if (user.password === oldPassword) {
+    if (user && user.password === oldPassword) {
       try {
-        await db
-          .collection("users")
-          .findAndModify({ email: email }, [["email", 1]], {
-            password: newPassword
-          });
+        await db.collection("users").findOneAndUpdate(
+          { email: email },
+          {
+            $set: { password: newPassword }
+          }
+        );
         logger.db.info(`Password update successfully - ${email}`);
         return "success";
       } catch (err) {
@@ -47,7 +53,7 @@ module.exports = {
         return "internal error";
       }
     } else {
-      return "invalid old password";
+      return "invalid";
     }
   }
 };

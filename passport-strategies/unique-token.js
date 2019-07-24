@@ -10,7 +10,10 @@ module.exports = redis => {
         if (err || reply === null) {
           done(null, false);
         } else {
-          done(null, Object.assign({ token: token, user: JSON.parse(reply) }));
+          done(
+            null,
+            Object.assign({ token: token, email: JSON.parse(reply).email })
+          );
         }
       });
     }
