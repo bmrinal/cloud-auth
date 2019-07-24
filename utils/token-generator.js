@@ -1,19 +1,17 @@
-const fs = require("fs");
-const jwt = require("jsonwebtoken");
+const crypto = require('crypto');
+const redis = require('redis');
+const logger = require('./logger');
+
 module.exports = user => {
-  const privateKEY = fs.readFileSync("./private.key", "utf8");
-  const publicKEY = fs.readFileSync("./public.key", "utf8");
+  const token = crypto.randomBytes(256).toString('hex');
   const payload = {
     email: user.email,
-    role: user.role,
-    publicKEY: publicKEY
+    role: user.role
   };
-  const signingOptions = {
-    issuer: "Cloud Auth",
-    subject: user.email,
-    expiresIn: "12h",
-    algorithm: "RS256"
-  };
-
-  return jwt.sign(payload, privateKEY, signingOptions);
+  const redisClient = redis.createClient('redis://redis:6379');
+  try { redisClient.set(token,JSON.stringify(payload),'EX','1800')}
+  catch (err){
+    logger.db.error(`Unable to set up redis client - ${err}`);
+  }
+  return token;
 };

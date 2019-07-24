@@ -6,8 +6,13 @@ const passport = require("passport");
 const respond = require("./utils/respond"); //responder (formats and sends the appropriate response codes and responses to the client)
 const adapter = require("./adapter"); //data adapter
 const dbops = require("./dbops"); //database operations
-const localstrategy = require("./passport-strategies/local"); //passport localstrategy config
 const getToken = require("./utils/token-generator"); //JWT token generator
+
+
+//passport strategies
+const localstrategy = require("./passport-strategies/local"); //localstrategy
+const tokenstrategy = require ("./passport-strategies/unique-token") // tokenstrategy
+
 
 //custom middlewares
 const requestLogger = require("./middlewares/requestLogger");
@@ -29,9 +34,12 @@ const init = require("./init")(app);
 app.on("ready", () => {
   //grab the db handle
   const db = app.get("db");
+  const redis = app.get('redis')
+  
+  //passport configuration 
+  passport.use(localstrategy(db)); //local strategy
+  passport.use(tokenstrategy(redis)); //token strategy
 
-  //basic passport configuration (local-strategy)
-  passport.use(localstrategy(db));
 
   //********* APPLICATION ROUTES ******* */
 
@@ -47,9 +55,30 @@ app.on("ready", () => {
     "/signin",
     passport.authenticate("local", { session: false }),
     (req, res, next) => {
-      res.send({ success: true, token: getToken(req.user) });
+        respond.success(res,{token: getToken(req.user)})
     }
   );
+
+  //signout
+  app.post('/signout',passport.authenticate('token',{session:false}), (req,res,next)=>{  
+    redis.del(req.user.token,(err,reply)=>{
+          if(!err)
+          {
+              respond.success(res,"User signed out successfully")
+          }
+          else
+          {
+              respond.internalError(res)
+          }
+      })
+  });
+
+  //verify token
+  app.post('/verify-token',passport.authenticate('token',{session:false}),(req,res)=>{
+    //refreshing the token
+    redis.expire(req.user.token, 1800);
+    respond.success(res,'Token valid')
+  })
 
   app.listen(port, () => console.log(`Auth service running on port ${port}`));
 });

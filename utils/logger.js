@@ -16,12 +16,12 @@ module.exports = {
         filename: path.join("logs", "database.log")
       })
     ],
-    exceptionHandlers: [
-      new winston.transports.File({
-        filename: path.join("logs", "database_exceptions.log"),
-        handleExceptions: true
-      })
-    ]
+    // exceptionHandlers: [
+    //   new winston.transports.File({
+    //     filename: path.join("logs", "database_exceptions.log"),
+    //     handleExceptions: true
+    //   })
+    // ]
   }),
   access: winston.createLogger({
     format: winston.format.combine(
@@ -35,11 +35,11 @@ module.exports = {
     transports: [
       new winston.transports.File({ filename: path.join("logs", "access.log") })
     ],
-    exceptionHandlers: [
-      new winston.transports.File({
-        filename: path.join("logs", "access_exceptions.log"),
-        handleExceptions: true
-      })
-    ]
+    // exceptionHandlers: [
+    //   new winston.transports.File({
+    //     filename: path.join("logs", "access_exceptions.log"),
+    //     handleExceptions: true
+    //   })
+    // ]
   })
 };
