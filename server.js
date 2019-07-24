@@ -3,11 +3,8 @@ const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-const respond = require("./utils/respond"); //responder (formats and sends the appropriate response codes and responses to the client)
-const adapter = require("./adapter"); //data adapter
-const dbops = require("./dbops"); //database operations
-const getToken = require("./utils/token-generator"); //JWT token generator
-
+//user router
+const user = require('./router');
 
 //passport strategies
 const localstrategy = require("./passport-strategies/local"); //localstrategy
@@ -32,6 +29,7 @@ app.use(requestLogger); //logs all the accesses
 const init = require("./init")(app);
 
 app.on("ready", () => {
+  
   //grab the db handle
   const db = app.get("db");
   const redis = app.get('redis')
@@ -40,45 +38,8 @@ app.on("ready", () => {
   passport.use(localstrategy(db)); //local strategy
   passport.use(tokenstrategy(redis)); //token strategy
 
-
-  //********* APPLICATION ROUTES ******* */
-
-  //signup
-  app.post("/signup", async (req, res, next) => {
-    const dbresults = await dbops.insertUser(db, adapter.getUsers(req.body));
-    respond.dbops(res, dbresults);
-    next();
-  });
-
-  //signin
-  app.post(
-    "/signin",
-    passport.authenticate("local", { session: false }),
-    (req, res, next) => {
-        respond.success(res,{token: getToken(req.user)})
-    }
-  );
-
-  //signout
-  app.post('/signout',passport.authenticate('token',{session:false}), (req,res,next)=>{  
-    redis.del(req.user.token,(err,reply)=>{
-          if(!err)
-          {
-              respond.success(res,"User signed out successfully")
-          }
-          else
-          {
-              respond.internalError(res)
-          }
-      })
-  });
-
-  //verify token
-  app.post('/verify-token',passport.authenticate('token',{session:false}),(req,res)=>{
-    //refreshing the token
-    redis.expire(req.user.token, 1800);
-    respond.success(res,'Token valid')
-  })
+  app.use('/user',user(db,redis,passport)); //loading user routes
 
   app.listen(port, () => console.log(`Auth service running on port ${port}`));
+
 });

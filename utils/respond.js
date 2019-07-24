@@ -14,5 +14,6 @@ module.exports = {
   },
   success: (res,message)=>res.send(constructResponse(true,message)),
   internalError:(res)=> res.send.status(503).send(constructResponse(false,"Internal server error occurred")),
-  invalidJSON:(res) => res.send.status(400).send(constructResponse(false,"Invalid JSON in the request"))
+  invalidJSON:(res) => res.send.status(400).send(constructResponse(false,"Invalid JSON in the request")),
+  
 };
