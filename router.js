@@ -10,7 +10,6 @@ module.exports = (db, redis, passport) => {
   router.post("/signup", async (req, res, next) => {
     const dbresults = await dbops.insertUser(db, adapter.getUsers(req.body));
     respond.dbops(res, dbresults);
-    next();
   });
 
   //signin
@@ -67,6 +66,28 @@ module.exports = (db, redis, passport) => {
       }
     }
   );
+  // create user
+  router.post(
+    "/create",
+    passport.authenticate("token", { session: false }),
+    async (req, res, next) => {
+      const dbresults = await dbops.insertUser(
+        db,
+        Object.assign({ parent: req.user.id }, adapter.getUsers(req.body))
+      );
+      respond.dbops(res, dbresults);
+    }
+  );
+
+  // temporary token
+  router.post("/temporary-token", async (req, res, next) => {
+    const getUser = await dbops.getUser(db, req.body.email);
+    if (getUser.success) {
+      respond.success(res, { token: getToken({ email: getUser.data.email }) });
+    } else {
+      respond.dbops(res, getUser);
+    }
+  });
 
   return router;
 };

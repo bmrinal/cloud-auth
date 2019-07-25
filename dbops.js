@@ -1,4 +1,5 @@
 const logger = require("./utils/logger");
+
 module.exports = {
   insertUser: async (db, user) => {
     //validations TODO: SANITIZE INPUTS
@@ -54,6 +55,19 @@ module.exports = {
       }
     } else {
       return "invalid";
+    }
+  },
+  getUser: async (db, email) => {
+    try {
+      const user = await db.collection("users").findOne({ email: email });
+      if (user) {
+        return { success: true, data: user };
+      } else {
+        return "invalid";
+      }
+    } catch (err) {
+      logger.db.error(err);
+      return "internal error";
     }
   }
 };
