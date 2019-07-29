@@ -1,21 +1,21 @@
-const router = require("express").Router();
+const router = require('express').Router();
 
-const respond = require("./utils/respond"); //responder (formats and sends the appropriate response codes and responses to the client)
-const adapter = require("./adapter"); //data adapter
-const dbops = require("./dbops"); //database operations
-const getToken = require("./utils/token-generator"); //JWT token generator
+const respond = require('./utils/respond'); //responder (formats and sends the appropriate response codes and responses to the client)
+const adapter = require('./adapter'); //data adapter
+const dbops = require('./dbops'); //database operations
+const getToken = require('./utils/token-generator'); //JWT token generator
 
 module.exports = (db, redis, passport) => {
   //signup
-  router.post("/signup", async (req, res, next) => {
+  router.post('/signup', async (req, res, next) => {
     const dbresults = await dbops.insertUser(db, adapter.getUsers(req.body));
     respond.dbops(res, dbresults);
   });
 
   //signin
   router.post(
-    "/signin",
-    passport.authenticate("local", { session: false }),
+    '/signin',
+    passport.authenticate('local', { session: false }),
     (req, res, next) => {
       respond.success(res, { token: getToken(req.user) });
     }
@@ -23,12 +23,12 @@ module.exports = (db, redis, passport) => {
 
   //signout
   router.post(
-    "/signout",
-    passport.authenticate("token", { session: false }),
+    '/signout',
+    passport.authenticate('token', { session: false }),
     (req, res, next) => {
       redis.del(req.user.token, (err, reply) => {
         if (!err) {
-          respond.success(res, "User signed out successfully");
+          respond.success(res, 'User signed out successfully');
         } else {
           respond.internalError(res);
         }
@@ -38,19 +38,19 @@ module.exports = (db, redis, passport) => {
 
   //verify token
   router.post(
-    "/verify-token",
-    passport.authenticate("token", { session: false }),
+    '/verify-token',
+    passport.authenticate('token', { session: false }),
     (req, res) => {
       //refreshing the token
       redis.expire(req.user.token, 1800);
-      respond.success(res, "Token valid");
+      respond.success(res, 'Token valid');
     }
   );
 
   //change password
   router.post(
-    "/change-password",
-    passport.authenticate("token", { session: false }),
+    '/change-password',
+    passport.authenticate('token', { session: false }),
     async (req, res, next) => {
       const changePassword = await dbops.changeUserPassword(
         db,
@@ -58,9 +58,9 @@ module.exports = (db, redis, passport) => {
         req.body.oldPassword,
         req.body.newPassword
       );
-      if (changePassword === "success") {
+      if (changePassword === 'success') {
         redis.del(req.user.token);
-        respond.success(res, "Password changed");
+        respond.success(res, 'Password changed');
       } else {
         respond.dbops(res, changePassword);
       }
@@ -68,8 +68,8 @@ module.exports = (db, redis, passport) => {
   );
   // create user
   router.post(
-    "/create",
-    passport.authenticate("token", { session: false }),
+    '/create',
+    passport.authenticate('token', { session: false }),
     async (req, res, next) => {
       const dbresults = await dbops.insertUser(
         db,
@@ -79,8 +79,22 @@ module.exports = (db, redis, passport) => {
     }
   );
 
+  // get sub users
+  router.get(
+    '/sub',
+    passport.authenticate('token', { session: false }),
+    async (req, res, next) => {
+      const dbResults = await dbops.getSubUsers(db, req.user.id);
+      if (dbResults.success) {
+        respond.success(res, { users: dbResults.data });
+      } else {
+        respond.dbops(res, dbResults);
+      }
+    }
+  );
+
   // temporary token
-  router.post("/temporary-token", async (req, res, next) => {
+  router.post('/temporary-token', async (req, res, next) => {
     const getUser = await dbops.getUser(db, req.body.email);
     if (getUser.success) {
       respond.success(res, { token: getToken({ email: getUser.data.email }) });

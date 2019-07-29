@@ -1,5 +1,5 @@
-const TokenStrategy = require("passport-unique-token").Strategy;
-const respond = require("../utils/respond");
+const TokenStrategy = require('passport-unique-token').Strategy;
+const respond = require('../utils/respond');
 
 module.exports = redis => {
   return new TokenStrategy((token, done) => {
@@ -10,7 +10,6 @@ module.exports = redis => {
         if (err || reply === null) {
           done(null, false);
         } else {
-          console.log(reply);
           done(null, Object.assign({ token: token, ...JSON.parse(reply) }));
         }
       });

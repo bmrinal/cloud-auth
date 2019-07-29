@@ -1,5 +1,5 @@
-const winston = require("winston");
-const path = require("path");
+const winston = require('winston');
+const path = require('path');
 
 module.exports = {
   db: winston.createLogger({
@@ -9,11 +9,11 @@ module.exports = {
     ),
     defaultMeta: {
       timestamp:
-        new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()
+        new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString()
     },
     transports: [
       new winston.transports.File({
-        filename: path.join("logs", "database.log")
+        filename: path.join('logs', 'database.log')
       })
     ]
   }),
@@ -24,10 +24,10 @@ module.exports = {
     ),
     defaultMeta: {
       timestamp:
-        new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()
+        new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString()
     },
     transports: [
-      new winston.transports.File({ filename: path.join("logs", "access.log") })
+      new winston.transports.File({ filename: path.join('logs', 'access.log') })
     ]
   })
 };

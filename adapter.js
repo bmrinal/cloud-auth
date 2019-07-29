@@ -1,9 +1,9 @@
 module.exports = {
   getUsers: data => {
     return {
-      username: data.username || "",
-      password: data.password || "",
-      email: data.email || "",
+      username: data.username || '',
+      password: data.password || '',
+      email: data.email || '',
       roles: data.roles || []
     };
   }
