@@ -1,172 +1,261 @@
 {
-  "info": {
-    "_postman_id": "17f0bc2f-3732-4e61-b0c8-b9cd7ede667d",
-    "name": "cloudauth",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Sign Up",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n\t\"email\":\"test@test.com\",\n\t\"password\":\"test\"\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/signup",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["signup"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get temporary token for 'forget password'",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "token",
-            "value": "{{cloud-auth-token}}",
-            "type": "text"
-          },
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n\t\"email\":\"test@tedddst.com\",\n\t\"password\":\"test\"\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/user/signup",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["user", "signup"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Create a sub user",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "token",
-            "value": "{{cloud-auth-token}}",
-            "type": "text"
-          },
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n\t\"email\":\"subuser@ddseddr.com\",\n\t\"password\":\"password\"\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/user/create",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["user", "create"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Sign out current user",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "token",
-            "value": "{{cloud-auth-token}}",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "localhost:3000/user/signout",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["user", "signout"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Verify current token",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "token",
-            "value": "{{cloud-auth-token}}",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "localhost:3000/user/verify-token",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["user", "verify-token"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Signin a user",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "3377298b-2042-4825-b6fe-54cd798eaac5",
-            "exec": [
-              "var response = pm.response.json()",
-              "pm.environment.set(\"cloud-auth-token\",response.message.token)"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n\t\"email\":\"test@test.com\",\n\t\"password\":\"mrinal\"\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/user/signin",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["user", "signin"]
-        }
-      },
-      "response": []
-    }
-  ]
+	"info": {
+		"_postman_id": "17f0bc2f-3732-4e61-b0c8-b9cd7ede667d",
+		"name": "cloudauth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"test@test.com\",\n\t\"password\":\"test\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get temporary token for 'forget password'",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{cloud-auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"test@tedddst.com\",\n\t\"password\":\"test\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/user/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a sub user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{cloud-auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"subuser@ddseddr.com\",\n\t\"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/user/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign out current user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{cloud-auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/user/signout",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"signout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify current token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{cloud-auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/user/verify-token",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"verify-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3377298b-2042-4825-b6fe-54cd798eaac5",
+						"exec": [
+							"var response = pm.response.json()",
+							"pm.environment.set(\"cloud-auth-token\",response.message.token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"test@test.com\",\n\t\"password\":\"mrinal\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/user/signin",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get child users of the current user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{cloud-auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/user/sub",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"sub"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password for the current user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{cloud-auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"oldPassword\":\"mrinalnew\",\n\t\"newPassword\":\"\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/user/change-password",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }
