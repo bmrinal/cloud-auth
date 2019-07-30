@@ -4,19 +4,45 @@ const respond = require('./utils/respond'); //responder (formats and sends the a
 const adapter = require('./adapter'); //data adapter
 const dbops = require('./dbops'); //database operations
 const getToken = require('./utils/token-generator'); //JWT token generator
+const { check, validationResult } = require('express-validator');
 
 module.exports = (db, redis, passport) => {
   //signup
-  router.post('/signup', async (req, res, next) => {
-    const dbresults = await dbops.insertUser(db, adapter.getUsers(req.body));
-    respond.dbops(res, dbresults);
-  });
+  router.post(
+    '/signup',
+    [
+      check('email')
+        .trim()
+        .isEmail()
+        .normalizeEmail(),
+      check('password')
+        .trim()
+        .isEmpty()
+    ],
+    async (req, res, next) => {
+      const dbresults = await dbops.insertUser(db, adapter.getUsers(req.body));
+      respond.dbops(res, dbresults);
+    }
+  );
 
   //signin
   router.post(
     '/signin',
+    [
+      check('email')
+        .isEmail()
+        .normalizeEmail(),
+      check('password')
+        .not()
+        .isEmpty()
+    ],
     passport.authenticate('local', { session: false }),
     (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+      }
+
       respond.success(res, { token: getToken(req.user) });
     }
   );
@@ -50,6 +76,16 @@ module.exports = (db, redis, passport) => {
   //change password
   router.post(
     '/change-password',
+    [
+      check('oldPassword')
+        .trim()
+        .not()
+        .isEmpty(),
+      check('newPassword')
+        .trim()
+        .not()
+        .isEmpty()
+    ],
     passport.authenticate('token', { session: false }),
     async (req, res, next) => {
       const changePassword = await dbops.changeUserPassword(
