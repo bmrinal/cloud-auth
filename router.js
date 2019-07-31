@@ -61,6 +61,22 @@ module.exports = (db, redis, passport) => {
       });
     }
   );
+  router.post(
+    '/sub',
+    passport.authenticate('token', { session: false }),
+    async (req, res, next) => {
+      let users = req.body.userid || req.body.userids;
+      if (typeof users === 'string') {
+        users = new Array(users);
+      }
+      const dbResults = await dbops.deleteSubUsers(db, users, req.user);
+      if (dbResults.success) {
+        respond.success(res, dbResults.data);
+      } else {
+        respond.dbops(res, dbResults);
+      }
+    }
+  );
 
   //verify token
   router.post(
@@ -102,6 +118,7 @@ module.exports = (db, redis, passport) => {
       }
     }
   );
+
   // create user
   router.post(
     '/create',

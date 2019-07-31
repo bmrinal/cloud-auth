@@ -17,11 +17,13 @@ module.exports = {
   },
   success: (res, message) => res.send(constructResponse(true, message)),
   internalError: res =>
-    res.send
+    res
       .status(503)
       .send(constructResponse(false, 'Internal server error occurred')),
   invalidJSON: res =>
-    res.send
+    res
       .status(400)
-      .send(constructResponse(false, 'Invalid JSON in the request'))
+      .send(constructResponse(false, 'Invalid JSON in the request')),
+  invalid: res =>
+    res.status(400).send(constructResponse(false, 'Invalid request'))
 };

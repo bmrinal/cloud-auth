@@ -1,4 +1,5 @@
 const logger = require('./utils/logger');
+const mongo = require('mongodb');
 
 module.exports = {
   insertUser: async (db, user) => {
@@ -68,6 +69,24 @@ module.exports = {
       } else {
         return 'invalid';
       }
+    } catch (err) {
+      logger.db.error(err);
+      return 'internal error';
+    }
+  },
+  deleteSubUsers: async (db, users, currentUser) => {
+    if (!users || !Array.isArray(users) || !(users && users.length)) {
+      return 'invalid';
+    }
+    try {
+      const removedUsers = await db.collection('users').remove({
+        parent: currentUser.id,
+        _id: { $in: users.map(user => mongo.ObjectID(user)) }
+      });
+      return {
+        success: true,
+        data: `${removedUsers.result.n} user/users removed`
+      };
     } catch (err) {
       logger.db.error(err);
       return 'internal error';
