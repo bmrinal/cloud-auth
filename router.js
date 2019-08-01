@@ -61,8 +61,10 @@ module.exports = (db, redis, passport) => {
       });
     }
   );
+
+  //remove sub users
   router.post(
-    '/sub',
+    '/sub/remove',
     passport.authenticate('token', { session: false }),
     async (req, res, next) => {
       let users = req.body.userid || req.body.userids;

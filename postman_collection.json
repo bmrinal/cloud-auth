@@ -88,7 +88,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"subuser@ddseddr.com\",\n\t\"password\":\"password\"\n}"
+					"raw": "{\n\t\"email\":\"subuser4@subuser.com\",\n\t\"password\":\"password\"\n}"
 				},
 				"url": {
 					"raw": "localhost:3000/user/create",
@@ -181,7 +181,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"test@test.com\",\n\t\"password\":\"mrinal\"\n}"
+					"raw": "{\n\t\"email\":\"test@test.com\",\n\t\"password\":\"mrinalnew\"\n}"
 				},
 				"url": {
 					"raw": "localhost:3000/user/signin",
@@ -241,7 +241,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"oldPassword\":\"mrinalnew\",\n\t\"newPassword\":\"\"\n}"
+					"raw": "{\n\t\"oldPassword\":\"mrinalnew\",\n\t\"newPassword\":\"mrinal\"\n}"
 				},
 				"url": {
 					"raw": "localhost:3000/user/change-password",
@@ -252,6 +252,42 @@
 					"path": [
 						"user",
 						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove sub users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "token",
+						"value": "{{cloud-auth-token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userid\":[\"5d42e9458a6b20002b0d060b\",\"5d42e9418a6b20002b0d060a\",\"5d42e93c8a6b20002b0d0609\"]\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/user/sub/remove",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"sub",
+						"remove"
 					]
 				}
 			},
