@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 //user router
-const user = require('./router');
+const routes = require('./routes');
 
 //passport strategies
 const localstrategy = require('./passport-strategies/local'); //localstrategy
@@ -36,7 +36,7 @@ app.on('ready', () => {
   passport.use(localstrategy(db)); //local strategy
   passport.use(tokenstrategy(redis)); //token strategy
 
-  app.use('/user', user(db, redis, passport)); //loading user routes
+  app.use('/', routes(db, redis, passport)); //loading application routes
 
   app.listen(port, () => console.log(`Auth service running on port ${port}`));
 });
