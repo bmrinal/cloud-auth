@@ -92,6 +92,25 @@ module.exports = {
       return 'internal error';
     }
   },
+  deleteUser: async (db, userid) => {
+    console.log(userid);
+
+    if (!userid) {
+      return 'invalid';
+    }
+    try {
+      const user = await db
+        .collection('users')
+        .remove({ _id: mongo.ObjectID(userid) });
+      return {
+        success: true,
+        data: `User removed`
+      };
+    } catch (err) {
+      logger.db.error(err);
+      return 'internal error';
+    }
+  },
   getSubUsers: async (db, parentUser) => {
     if (!parentUser) {
       return 'invalid';
