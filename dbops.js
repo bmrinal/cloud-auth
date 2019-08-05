@@ -1,5 +1,6 @@
 const logger = require('./utils/logger');
 const mongo = require('mongodb');
+const bcrypt = require('bcrypt');
 
 module.exports = {
   insertUser: async (db, user) => {
@@ -24,9 +25,14 @@ module.exports = {
       return 'duplicate';
     } else {
       try {
-        const dbResponse = await db.collection('users').insertOne(user);
-        logger.db.info(`User successfully Provisioned -  ${user.email}`);
-        return 'success';
+        bcrypt.hash(user.password, 10, async (err, hash) => {
+          if (!err) {
+            user.password = hash;
+            const dbResponse = await db.collection('users').insertOne(user);
+            logger.db.info(`User successfully Provisioned -  ${user.email}`);
+            return 'success';
+          }
+        });
       } catch (err) {
         logger.db.error(err);
         return 'internal error';
