@@ -19,15 +19,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"test@test.com\",\n\t\"password\":\"test\"\n}"
+					"raw": "{\n\t\"email\":\"testhash@test.com\",\n\t\"password\":\"test\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/signup",
+					"raw": "localhost:3000/user/signup",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"user",
 						"signup"
 					]
 				}
