@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"testhash@test.com\",\n\t\"password\":\"test\"\n}"
+					"raw": "{\n\t\"email\":\"testhash@test.com\",\n\t\"password\":\"hash\"\n}"
 				},
 				"url": {
 					"raw": "localhost:3000/user/signup",
