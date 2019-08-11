@@ -25,14 +25,13 @@ module.exports = {
       return 'duplicate';
     } else {
       try {
-        bcrypt.hash(user.password, 10, async (err, hash) => {
-          if (!err) {
-            user.password = hash;
-            const dbResponse = await db.collection('users').insertOne(user);
-            logger.db.info(`User successfully Provisioned -  ${user.email}`);
-            return 'success';
-          }
-        });
+        let hash = await bcrypt.hash(user.password, 10);
+        if (hash) {
+          user.password = hash;
+          const dbResponse = await db.collection('users').insertOne(user);
+          logger.db.info(`User successfully Provisioned -  ${user.email}`);
+          return 'success';
+        }
       } catch (err) {
         logger.db.error(err);
         return 'internal error';
@@ -99,8 +98,6 @@ module.exports = {
     }
   },
   deleteUser: async (db, userid) => {
-    console.log(userid);
-
     if (!userid) {
       return 'invalid';
     }
