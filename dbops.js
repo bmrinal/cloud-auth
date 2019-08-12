@@ -39,25 +39,37 @@ module.exports = {
     }
   },
   changeUserPassword: async (db, email, oldPassword, newPassword) => {
-    //validations TODO: SANITIZE INPUTS
     if (!email || !oldPassword || !newPassword) {
       return 'invalid';
     }
-
     const user = await db.collection('users').findOne({ email: email });
-    if (user && user.password === oldPassword) {
-      try {
-        await db.collection('users').findOneAndUpdate(
-          { email: email },
-          {
-            $set: { password: newPassword }
+    if (user) {
+      let isOldPasswordCorrect = await bcrypt.compare(
+        oldPassword,
+        user.password
+      );
+      if (isOldPasswordCorrect) {
+        try {
+          let hash = await bcrypt.hash(newPassword, 10);
+          if (hash) {
+            await db.collection('users').findOneAndUpdate(
+              { email: email },
+              {
+                $set: { password: hash }
+              }
+            );
+            logger.db.info(`Password updated successfully - ${email}`);
+            return 'success';
+          } else {
+            logger.db.error(`Unable to hash the password ${err}`);
+            return 'internal error';
           }
-        );
-        logger.db.info(`Password update successfully - ${email}`);
-        return 'success';
-      } catch (err) {
-        logger.db.error(err);
-        return 'internal error';
+        } catch (err) {
+          logger.db.error(err);
+          return 'internal error';
+        }
+      } else {
+        return 'invalid';
       }
     } else {
       return 'invalid';
