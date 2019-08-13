@@ -28,15 +28,15 @@ app.use(requestLogger); //logs all the accesses
 const init = require('./init')(app);
 
 app.on('ready', () => {
-  //grab the db handle
-  const db = app.get('db');
-  const redis = app.get('redis');
-
   //passport configuration
-  passport.use(localstrategy(db)); //local strategy
-  passport.use(tokenstrategy(redis)); //token strategy
+  passport.use(localstrategy(app.get('db'))); //local strategy
+  passport.use(tokenstrategy(app.get('redis'))); //token strategy
 
-  app.use('/', routes(db, redis, passport)); //loading application routes
+  //loading application routes
+  app.use(
+    '/',
+    routes({ db: app.get('db'), redis: app.get('redis'), passport: passport })
+  );
 
   app.listen(port, () => console.log(`Auth service running on port ${port}`));
 });

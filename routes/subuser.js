@@ -5,7 +5,7 @@ const dbops = require('../dbops'); //database operations
 const getToken = require('../utils/token-generator'); //JWT token generator
 const { check, validationResult } = require('express-validator');
 
-module.exports = (db, redis, passport) => {
+module.exports = ({ db, redis, passport } = handles) => {
   // create sub user
   router.post(
     '/',

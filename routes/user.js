@@ -1,29 +1,14 @@
 const router = require('express').Router();
 const respond = require('../utils/respond'); //responder (formats and sends the appropriate response codes and responses to the client)
-const adapter = require('../adapter'); //data adapter
 const dbops = require('../dbops'); //database operations
 const getToken = require('../utils/token-generator'); //JWT token generator
-
+const controller = require('../controllers/user');
+const validations = require('../validations');
 const { check, validationResult } = require('express-validator');
 
-module.exports = (db, redis, passport) => {
+module.exports = ({ db, redis, passport } = handles) => {
   //signup
-  router.post(
-    '/signup',
-    [
-      check('email')
-        .trim()
-        .isEmail()
-        .normalizeEmail(),
-      check('password')
-        .trim()
-        .isEmpty()
-    ],
-    async (req, res, next) => {
-      const dbresults = await dbops.insertUser(db, adapter.getUsers(req.body));
-      respond.dbops(res, dbresults);
-    }
-  );
+  router.post('/signup', validations.signup, controller.signup(db));
 
   //signin
   router.post(

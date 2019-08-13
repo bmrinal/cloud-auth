@@ -3,7 +3,7 @@ const respond = require('../utils/respond'); //responder (formats and sends the 
 const dbops = require('../dbops'); //database operations
 const getToken = require('../utils/token-generator'); //JWT token generator
 
-module.exports = (db, redis, passport) => {
+module.exports = ({ db, redis, passport } = handles) => {
   //verify token
   router.post(
     '/verify',
