@@ -9,5 +9,13 @@ module.exports = {
     check('password')
       .trim()
       .isEmpty()
+  ],
+  signin: [
+    check('email')
+      .isEmail()
+      .normalizeEmail(),
+    check('password')
+      .not()
+      .isEmpty()
   ]
 };

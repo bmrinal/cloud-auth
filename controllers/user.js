@@ -9,5 +9,16 @@ module.exports = {
   signup: db => async (req, res) => {
     const dbresults = await dbops.insertUser(db, adapter.getUsers(req.body));
     respond.dbops(res, dbresults);
+  },
+  signin: () => (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    }
+    respond.success(res, {
+      token: getToken(req.user)
+    });
   }
 };

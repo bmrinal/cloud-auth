@@ -13,29 +13,11 @@ module.exports = ({ db, redis, passport } = handles) => {
   //signin
   router.post(
     '/signin',
-    [
-      check('email')
-        .isEmail()
-        .normalizeEmail(),
-      check('password')
-        .not()
-        .isEmpty()
-    ],
+    validations.signin,
     passport.authenticate('local', {
       session: false
     }),
-    (req, res, next) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(422).json({
-          errors: errors.array()
-        });
-      }
-
-      respond.success(res, {
-        token: getToken(req.user)
-      });
-    }
+    controller.signin()
   );
 
   //signout
