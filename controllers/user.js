@@ -3,7 +3,10 @@ const adapter = require('../adapter'); //data adapter
 const dbops = require('../dbops'); //database operations
 const getToken = require('../utils/token-generator'); //JWT token generator
 
-const { check, validationResult } = require('express-validator');
+const {
+  check,
+  validationResult
+} = require('express-validator');
 
 module.exports = {
   signup: db => async (req, res) => {
@@ -19,6 +22,15 @@ module.exports = {
     }
     respond.success(res, {
       token: getToken(req.user)
+    });
+  },
+  signout: (req, res) => {
+    redis.del(req.user.token, (err, reply) => {
+      if (!err) {
+        respond.success(res, 'User signed out successfully');
+      } else {
+        respond.internalError(res);
+      }
     });
   }
 };

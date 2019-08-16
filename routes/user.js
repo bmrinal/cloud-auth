@@ -4,9 +4,16 @@ const dbops = require('../dbops'); //database operations
 const getToken = require('../utils/token-generator'); //JWT token generator
 const controller = require('../controllers/user');
 const validations = require('../validations');
-const { check, validationResult } = require('express-validator');
+const {
+  check,
+  validationResult
+} = require('express-validator');
 
-module.exports = ({ db, redis, passport } = handles) => {
+module.exports = ({
+  db,
+  redis,
+  passport
+} = handles) => {
   //signup
   router.post('/signup', validations.signup, controller.signup(db));
 
@@ -26,15 +33,7 @@ module.exports = ({ db, redis, passport } = handles) => {
     passport.authenticate('token', {
       session: false
     }),
-    (req, res, next) => {
-      redis.del(req.user.token, (err, reply) => {
-        if (!err) {
-          respond.success(res, 'User signed out successfully');
-        } else {
-          respond.internalError(res);
-        }
-      });
-    }
+    controller.signout()
   );
 
   //change password
@@ -42,15 +41,17 @@ module.exports = ({ db, redis, passport } = handles) => {
     '/change-password',
     [
       check('oldPassword')
-        .trim()
-        .not()
-        .isEmpty(),
+      .trim()
+      .not()
+      .isEmpty(),
       check('newPassword')
-        .trim()
-        .not()
-        .isEmpty()
+      .trim()
+      .not()
+      .isEmpty()
     ],
-    passport.authenticate('token', { session: false }),
+    passport.authenticate('token', {
+      session: false
+    }),
     async (req, res, next) => {
       const changePassword = await dbops.changeUserPassword(
         db,
@@ -70,7 +71,9 @@ module.exports = ({ db, redis, passport } = handles) => {
   //remove user
   router.delete(
     '/',
-    passport.authenticate('token', { session: false }),
+    passport.authenticate('token', {
+      session: false
+    }),
     async (req, res, next) => {
       let userid = req.user.id;
       const dbResults = await dbops.deleteUser(db, userid);
@@ -88,15 +91,17 @@ module.exports = ({ db, redis, passport } = handles) => {
     '/change-password',
     [
       check('oldPassword')
-        .trim()
-        .not()
-        .isEmpty(),
+      .trim()
+      .not()
+      .isEmpty(),
       check('newPassword')
-        .trim()
-        .not()
-        .isEmpty()
+      .trim()
+      .not()
+      .isEmpty()
     ],
-    passport.authenticate('token', { session: false }),
+    passport.authenticate('token', {
+      session: false
+    }),
     async (req, res, next) => {
       const changePassword = await dbops.changeUserPassword(
         db,
