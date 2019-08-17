@@ -24,7 +24,7 @@ module.exports = {
       token: getToken(req.user)
     });
   },
-  signout: (req, res) => {
+  signout: redis => (req, res) => {
     redis.del(req.user.token, (err, reply) => {
       if (!err) {
         respond.success(res, 'User signed out successfully');

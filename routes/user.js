@@ -33,7 +33,7 @@ module.exports = ({
     passport.authenticate('token', {
       session: false
     }),
-    controller.signout()
+    controller.signout(redis)
   );
 
   //change password
