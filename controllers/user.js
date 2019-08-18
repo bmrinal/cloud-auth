@@ -32,5 +32,20 @@ module.exports = {
         respond.internalError(res);
       }
     });
+  },
+  changePassword: (db, redis) => async (req, res) => {
+    const changePassword = await dbops.changeUserPassword(
+      db,
+      req.user.email,
+      req.body.oldPassword,
+      req.body.newPassword
+    );
+
+    if (changePassword === 'success') {
+      redis.del(req.user.token);
+      respond.success(res, 'Password changed');
+    } else {
+      respond.dbops(res, changePassword);
+    }
   }
 };
