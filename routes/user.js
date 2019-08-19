@@ -52,16 +52,7 @@ module.exports = ({
     passport.authenticate('token', {
       session: false
     }),
-    async (req, res, next) => {
-      let userid = req.user.id;
-      const dbResults = await dbops.deleteUser(db, userid);
-      if (dbResults.success) {
-        await redis.del(req.user.token); //signing out the user
-        respond.success(res, dbResults.data);
-      } else {
-        respond.dbops(res, dbResults);
-      }
-    }
+    controller.deleteUser(db, redis)
   );
 
   //change password

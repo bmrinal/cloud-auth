@@ -47,5 +47,15 @@ module.exports = {
     } else {
       respond.dbops(res, changePassword);
     }
+  },
+  deleteUser: (db, redis) => async (req, res) => {
+    let userid = req.user.id;
+    const dbResults = await dbops.deleteUser(db, userid);
+    if (dbResults.success) {
+      await redis.del(req.user.token); //signing out the user
+      respond.success(res, dbResults.data);
+    } else {
+      respond.dbops(res, dbResults);
+    }
   }
 };
