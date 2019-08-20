@@ -1,13 +1,6 @@
 const router = require('express').Router();
-const respond = require('../utils/respond'); //responder (formats and sends the appropriate response codes and responses to the client)
-const dbops = require('../dbops'); //database operations
-const getToken = require('../utils/token-generator'); //JWT token generator
 const controller = require('../controllers/user');
 const validations = require('../validations');
-const {
-  check,
-  validationResult
-} = require('express-validator');
 
 module.exports = ({
   db,
@@ -53,38 +46,6 @@ module.exports = ({
       session: false
     }),
     controller.deleteUser(db, redis)
-  );
-
-  //change password
-  router.post(
-    '/change-password',
-    [
-      check('oldPassword')
-      .trim()
-      .not()
-      .isEmpty(),
-      check('newPassword')
-      .trim()
-      .not()
-      .isEmpty()
-    ],
-    passport.authenticate('token', {
-      session: false
-    }),
-    async (req, res, next) => {
-      const changePassword = await dbops.changeUserPassword(
-        db,
-        req.user.email,
-        req.body.oldPassword,
-        req.body.newPassword
-      );
-      if (changePassword === 'success') {
-        redis.del(req.user.token);
-        respond.success(res, 'Password changed');
-      } else {
-        respond.dbops(res, changePassword);
-      }
-    }
   );
   return router;
 };
