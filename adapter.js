@@ -4,7 +4,11 @@ module.exports = {
       username: data.username || '',
       password: data.password || '',
       email: data.email || '',
-      roles: data.roles || []
+      roles: data.roles || [],
+      firstname: data.firstname || '',
+      lastname: data.lastname || '',
+      contactNumber: data.contactNumber || '',
+      designation: data.designation || ''
     };
   }
 };
