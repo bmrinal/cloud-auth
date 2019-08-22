@@ -19,14 +19,13 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"testhash@test.com\",\n\t\"password\":\"hash\"\n}"
+					"raw": "{\n\t\"email\":\"new@tesddtdd.com\",\n\t\"password\":\"hash\",\n\t\"designation\":\"manager\",\n\t\"rolddes\":[\"orgadmin\"]\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/user/signup",
+					"raw": "{{host}}/user/signup",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"signup"
@@ -57,11 +56,10 @@
 					"raw": "{\n\t\"email\":\"test@tedddst.com\",\n\t\"password\":\"test\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/token/temporary",
+					"raw": "{{host}}/token/temporary",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"token",
 						"temporary"
@@ -92,11 +90,10 @@
 					"raw": "{\n\t\"email\":\"subuser4@subuser.com\",\n\t\"password\":\"password\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/user/sub",
+					"raw": "{{host}}/user/sub",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"sub"
@@ -117,11 +114,10 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/user/signout",
+					"raw": "{{host}}/user/signout",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"signout"
@@ -142,11 +138,10 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/token/verify",
+					"raw": "{{host}}/token/verify",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"token",
 						"verify"
@@ -182,14 +177,13 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"test@test.com\",\n\t\"password\":\"mrinal\"\n}"
+					"raw": "{\n\t\"email\":\"new@tesddtdd.com\",\n\t\"password\":\"hash\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/user/signin",
+					"raw": "{{host}}/user/signin",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"signin"
@@ -210,11 +204,10 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/user/sub",
+					"raw": "{{host}}/user/sub",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"sub"
@@ -242,14 +235,13 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"oldPassword\":\"mrinalnew\",\n\t\"newPassword\":\"mrinal\"\n}"
+					"raw": "{\n\t\"oldPassword\":\"test\",\n\t\"newPassword\":\"test\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/user/change-password",
+					"raw": "{{host}}/user/change-password",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"change-password"
@@ -280,11 +272,10 @@
 					"raw": "{\n\t\"userid\":\"5d42f32b57d5d7033dda8bc0\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/user/sub/remove",
+					"raw": "{{host}}/user/sub/remove",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"sub",
@@ -300,11 +291,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/user?token={{cloud-auth-token}}",
+					"raw": "{{host}}/user?token={{cloud-auth-token}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"user"
 					],
