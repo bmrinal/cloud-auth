@@ -19,6 +19,8 @@ Cloud Auth aims to provide a head start for applications that need to handle all
 - Pull out user profiles
 - Create sub users (Maintain hierarchy of users)
 - User Roles and permissions
+- Create full user profiles using a simple json
+- Update credentials
 
 All this out of the box, on your own machine or in a hosted env - upto you!
 
