@@ -44,7 +44,11 @@ Can be used as a microservice or a REST service and can integrate seamlessly wit
 Docker Containers, NodeJS, Express, MongoDB, Redis based sessions!
 
 **Docker** : Docker containers are used for different underlying services
+
 **NodeJS**: The primary environment
+
 **Redis** : Primarily exists for taking care of sessions
+
 **MongoDB**: The database for storing all user data
+
 **ExpressJS**: This is for generating REST API and uses several middlewares like passport, helmet etc.
