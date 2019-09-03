@@ -52,3 +52,5 @@ Docker Containers, NodeJS, Express, MongoDB, Redis based sessions!
 **MongoDB**: The database for storing all user data
 
 **ExpressJS**: This is for generating REST API and uses several middlewares like passport, helmet etc.
+
+**PassportJS** Local and JWT stragtegies for now!
