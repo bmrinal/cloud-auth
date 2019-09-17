@@ -18,7 +18,7 @@ const bodyParserErrors = require('./middlewares/bodyParserErrors');
 const port = 3000;
 
 //Middlewares
-app.use(helmet());
+// app.use(helmet());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(bodyParserErrors); //handles JSON parsing errors
