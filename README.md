@@ -36,7 +36,7 @@ Can be used as a microservice or a REST service and can integrate seamlessly wit
 
 - Install docker on your machine
 - Clone the repository and cd into it
-- Run `docker-compose -f docker-compose.dev.yml up` (for dev, remove dev for production setups)
+- Run `docker-compose -f docker-compose.dev.yml up` (for production, remove dev for production setups)
 - The API should be up on port 3000
 
 ## Under the bonnet!
