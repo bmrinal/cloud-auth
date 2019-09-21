@@ -4,8 +4,9 @@
   "description": "Handles signups, login, logout, session validation and recovery of credentials",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./server.js"
+    "start": "nodemon ./server.js",
+    "unit": "jest",
+    "coverage": "jest --coverage"
   },
   "author": "Mrinal Purohit",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "jest": "^24.9.0",
     "nodemon": "^1.19.1"
   }
 }
