@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
     "gen-uid": "0.0.2",
-    "helmet": "^3.18.0",
+    "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.2.7",
     "passport": "^0.4.0",
