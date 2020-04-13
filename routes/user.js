@@ -1,14 +1,11 @@
-const router = require('express').Router();
-const controller = require('../controllers/user');
-const validations = require('../validations');
+const router = require('express').Router()
+const controller = require('../controllers/user')
+const validations = require('../validations')
+const passport = require('passport')
 
-module.exports = ({
-  db,
-  redis,
-  passport
-} = handles) => {
+module.exports = () => {
   //signup
-  router.post('/signup', validations.signup, controller.signup(db));
+  router.post('/signup', validations.signup, controller.signup());
 
   //signin
   router.post(
@@ -17,7 +14,7 @@ module.exports = ({
     passport.authenticate('local', {
       session: false
     }),
-    controller.signin()
+    controller.signin
   );
 
   //signout
@@ -26,7 +23,7 @@ module.exports = ({
     passport.authenticate('token', {
       session: false
     }),
-    controller.signout(redis)
+    controller.signout
   );
 
   //change password
@@ -36,7 +33,7 @@ module.exports = ({
     passport.authenticate('token', {
       session: false
     }),
-    controller.changePassword(db, redis)
+    controller.changePassword
   );
 
   //remove user
@@ -45,7 +42,7 @@ module.exports = ({
     passport.authenticate('token', {
       session: false
     }),
-    controller.deleteUser(db, redis)
+    controller.deleteUser
   );
   return router;
-};
+}

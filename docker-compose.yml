@@ -1,17 +1,10 @@
-version: '3'
+version: '3.4'
+
 services:
-  authservice:
-    container_name: authservice
-    restart: always
+  cloud-auth:
+    image: cloud-auth
     build: .
+    environment:
+      NODE_ENV: production
     ports:
-      - '3000:3000'
-    links:
-      - mongo
-      - redis
-  mongo:
-    container_name: mongo
-    image: mongo
-  redis:
-    image: redis
-    container_name: redis
+      - 3000

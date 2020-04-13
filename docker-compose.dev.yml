@@ -1,16 +1,17 @@
 version: "3"
 services:
   dev:  
-    image: node:11
+    image: node:12
     volumes:
       - ./:/usr/src/service
     working_dir: /usr/src/service
-    command: bash -c "npm install && npm start"
+    command: bash -c "npm install && npm run app"
     links:
       - mongo
       - redis
     ports:
       - "3000:3000"
+      - "9229:9229"
   mongo:
     container_name: mongo
     image: mongo
@@ -23,3 +24,4 @@ services:
     container_name: redis
     ports:
      - "8123:6379"
+     

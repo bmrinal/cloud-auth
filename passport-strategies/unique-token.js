@@ -1,7 +1,7 @@
 const TokenStrategy = require('passport-unique-token').Strategy;
-const respond = require('../utils/respond');
+const { redis } = require('../db')
 
-module.exports = redis => {
+module.exports = () => {
   return new TokenStrategy((token, done) => {
     if (!token) {
       done(null, false);

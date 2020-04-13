@@ -1,13 +1,13 @@
-const router = require('express').Router();
+const router = require('express').Router()
 
 //application routes
-const user = require('./user');
-const subuser = require('./subuser');
-const token = require('./token');
+const user = require('./user')
+const subUser = require('./subUser')
+const token = require('./token')
 
-module.exports = handles => {
-  router.use('/user', user(handles));
-  router.use('/user/sub', subuser(handles));
-  router.use('/token', token(handles));
-  return router;
-};
+module.exports = () => {
+  router.use('/user', user())
+  router.use('/user/sub', subUser)
+  router.use('/token', token)
+  return router
+}

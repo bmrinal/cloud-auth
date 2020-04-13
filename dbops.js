@@ -1,15 +1,17 @@
 const logger = require('./utils/logger');
 const mongo = require('mongodb');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+const { mongoDb: db } = require('./db')
+
 
 module.exports = {
-  insertUser: async (db, user) => {
+  insertUser: async (user) => {
+
     //validations TODO: SANITIZE INPUTS
     if (user.email === '' || user.password === '') {
       logger.db.error('Invalid/Blank email and/or password supplied');
       return 'invalid';
     }
-
     //check duplicates
     const existingEmails = await db
       .collection('users')

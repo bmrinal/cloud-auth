@@ -1,7 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+const { mongoDb: db } = require('../db')
 
-module.exports = db => {
+module.exports = () => {
   return new LocalStrategy(
     {
       usernameField: 'email'
