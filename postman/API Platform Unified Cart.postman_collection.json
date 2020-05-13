@@ -1,0 +1,2678 @@
+{
+	"info": {
+		"_postman_id": "b20070cd-a7d6-47a7-8989-94678aa79828",
+		"name": "API Platform Unified Cart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tallboy Endpoints",
+			"item": [
+				{
+					"name": "Drafts",
+					"item": [
+						{
+							"name": "[Draft] Add phone to cart (Activation) Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c31d9e79-5bdb-4e30-a249-2045f2880d3b",
+										"exec": [
+											"pm.environment.set(\"recent_item\",pm.response.json().data.itemId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "province",
+										"type": "text",
+										"value": "bc"
+									},
+									{
+										"key": "language",
+										"type": "text",
+										"value": "en"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "t-session-token",
+										"type": "text",
+										"value": "{{session_token}}"
+									},
+									{
+										"key": "t-target",
+										"value": "unified-cart-v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\": \"PHONE\",\n    \"context\": {\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"ACTIVATION\",\n        \"orderSubType\": \"NEW\",\n        \"sku\": \"LSSN960BE\",\n        \"bringItBack\": false,\n        \"deviceType\": \"phones\",\n        \"salesTransactionId\": \"20190227162157547cc547b1d8f6041ba9d9977b83926b3b0\",\n        \"correlationId\": \"ce5ed914-4506-4dae-98d0-49907c09b54a\",\n        \"offerId\": \"1089261\",\n        \"planId\": \"PPMC10GA\",\n        \"simSku\": \"HGDSIM3\",\n        \"term\": 24,\n        \"role\": \"NEW\",\n        \"editUrl\": \"https://www.wcstage.telus.com/en/bc/business/build-your-order\",\n        \"addOns\": []\n    }\n}"
+								},
+								"url": {
+									"raw": "{{host}}/tallboy/{{cartId}}/draft",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tallboy",
+										"{{cartId}}",
+										"draft"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Draft] Update item in cart (Activation)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c31d9e79-5bdb-4e30-a249-2045f2880d3b",
+										"exec": [
+											"pm.environment.set(\"recent_item\",pm.response.json().data.itemId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "province",
+										"type": "text",
+										"value": "bc"
+									},
+									{
+										"key": "language",
+										"type": "text",
+										"value": "en"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "t-session-token",
+										"type": "text",
+										"value": "{{session_token}}"
+									},
+									{
+										"key": "t-target",
+										"value": "unified-cart-v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\": \"PHONE\",\n    \"context\": {\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"ACTIVATION\",\n        \"orderSubType\": \"NEW\",\n        \"sku\": \"LSSN960BE\",\n        \"bringItBack\": false,\n        \"deviceType\": \"phones\",\n        \"salesTransactionId\": \"20190227162157547cc547b1d8f6041ba9d9977b83926b3b0\",\n        \"correlationId\": \"ce5ed914-4506-4dae-98d0-49907c09b54a\",\n        \"offerId\": \"1089261\",\n        \"planId\": \"PPMC10GA\",\n        \"simSku\": \"HGDSIM3\",\n        \"term\": 24,\n        \"role\": \"NEW\",\n        \"editUrl\": \"https://www.wcstage.telus.com/en/bc/business/build-your-order\",\n        \"addOns\": []\n    }\n}"
+								},
+								"url": {
+									"raw": "{{host}}/tallboy/{{cartId}}/draft/{{recent_item}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tallboy",
+										"{{cartId}}",
+										"draft",
+										"{{recent_item}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Create new empty cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b90274ca-4636-4dd4-b894-d7f6d9900df0",
+								"exec": [
+									"pm.environment.set(\"cartId\", pm.response.json().id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5e81877e-dd02-450b-91fa-777845b66b36",
+								"exec": [
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							},
+							{
+								"key": "province",
+								"value": "bc",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"value": "{{session_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "customer-type",
+								"value": "CONSUMER",
+								"type": "text"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth2}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}/tallboy",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add phone to cart (Activation)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e27f14b-1d02-4d2e-8291-30d9a6a3bf75",
+								"exec": [
+									"pm.environment.set(\"recent_item\",pm.response.json().data.itemId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "bc"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"PHONE\",\n    \"context\": {\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"ACTIVATION\",\n        \"orderSubType\": \"NEW\",\n        \"sku\": \"LSSN960BE\",\n        \"bringItBack\": false,\n        \"deviceType\": \"phones\",\n        \"salesTransactionId\": \"20190227162157547cc547b1d8f6041ba9d9977b83926b3b0\",\n        \"correlationId\": \"ce5ed914-4506-4dae-98d0-49907c09b54a\",\n        \"offerId\": \"1089261\",\n        \"planId\": \"PPMC10GA\",\n        \"simSku\": \"HGDSIM3\",\n        \"term\": 24,\n        \"role\": \"NEW\",\n        \"editUrl\": \"https://www.wcstage.telus.com/en/bc/business/build-your-order\",\n        \"addOns\": []\n    }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/item",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add tablet to cart (AAL)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "bc"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth}}",
+								"type": "text"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"TABLET\",\n    \"context\": {\n        \"ban\": \"19528429\",\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"AAL\",\n        \"bringItBack\": false,\n        \"deviceType\": \"tablets\",\n        \"salesTransactionId\": \"201912101509487791f40e21e850a4583a0b2ffe9e684a305\",\n        \"correlationId\": \"ae9927c3-5df4-4fe6-ab5f-72fd4e2078b4\",\n        \"offerId\": \"1103300\",\n        \"planId\": \"PYCTBSHPL\",\n        \"simSku\": \"TTRISIM\",\n        \"term\": 24,\n        \"role\": \"EXISTING\",\n        \"editUrl\": \"https://www.telus.com/en/mobility/configure/?product=apple-ipad-pro-12-9-3rd-generation&linktype=ge-meganav\",\n        \"manualFlow\": false,\n        \"sku\": \"LAIPP12V364GBGRY\",\n        \"portInRequest\": false\n    }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/item",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add phone to cart (AAL)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "bc"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth}}",
+								"type": "text"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"PHONE\",\n    \"context\": {\n        \"ban\": \"19528429\",\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"AAL\",\n        \"bringItBack\": false,\n        \"deviceType\": \"phones\",\n        \"salesTransactionId\": \"20191211114028985b53049458dc14b47af671dd201478735\",\n        \"correlationId\": \"868897c9-8284-4e58-a3e6-d24b5e8cbf8e\",\n        \"offerId\": \"1091020\",\n        \"planId\": \"PPMC20GB\",\n        \"simSku\": \"TTRISIM\",\n        \"term\": 24,\n        \"role\": \"EXISTING\",\n        \"editUrl\": \"https://www.wcstage.telus.com/en/mobility/configure/?product=samsung-galaxy-s10-cpo&sku=PRELSSGS10BK128\",\n        \"addOns\": [\n            {\n                \"id\": \"1094953\",\n                \"type\": \"PROMOTION\"\n            },\n            {\n                \"id\": \"1102014\",\n                \"type\": \"PROMOTION\"\n            }\n        ],\n        \"manualFlow\": false,\n        \"sku\": \"PRELSSGS10BK128\",\n        \"portInRequest\": false\n    }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/item",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add item to cart (Renewal) w/ Bring it Back Penalty",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "bc"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth}}",
+								"type": "text"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"PHONE\",\n    \"context\": {\n        \"ban\": \"19528429\",\n        \"sub\": \"7052083475\",\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"RENEWAL\",\n        \"bringItBack\": true,\n        \"deviceType\": \"phones\",\n        \"salesTransactionId\": \"2019121113341772101140642953340899d77546f81df35a0\",\n        \"correlationId\": \"6b560336-16d0-491b-9e77-56c641ebad48\",\n        \"offerId\": \"1091021\",\n        \"planId\": \"PPMC10GB\",\n        \"simSku\": \"TTRISIM\",\n        \"term\": 24,\n        \"role\": \"EXISTING\",\n        \"editUrl\": \"https://www.wcstage.telus.com/en/mobility/configure/?product=iphone-xs-max&sku=NLAIXSM64GBGL&INTCMP=tcom_pep_cta_config&linktype=pep\",\n        \"addOns\": [\n            {\n                \"id\": \"1094953\",\n                \"type\": \"PROMOTION\"\n            },\n            {\n                \"id\": \"1101130\",\n                \"type\": \"PROMOTION\"\n            },\n            {\n                \"id\": \"1102014\",\n                \"type\": \"PROMOTION\"\n            }\n        ],\n        \"manualFlow\": false,\n        \"sku\": \"LAIXSM64GBGL\",\n        \"portInRequest\": false\n    }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/item",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add item to cart (Renewal)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "bc"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-oauth2-token",
+								"type": "text",
+								"value": "{{oauth}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"PHONE\",\n    \"context\": {\n        \"ban\": \"19528429\",\n        \"sub\": \"5064800044\",\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"RENEWAL\",\n        \"bringItBack\": true,\n        \"deviceType\": \"phones\",\n        \"salesTransactionId\": \"20191211134208672f4795cd590484d8292f8600ae20f205b\",\n        \"correlationId\": \"21ccdbf5-442d-4bdc-be85-20f66c9f2ce2\",\n        \"offerId\": \"1101028\",\n        \"planId\": \"PPMC50G\",\n        \"simSku\": \"TTRISIM\",\n        \"term\": 24,\n        \"role\": \"EXISTING\",\n        \"editUrl\": \"https://www.wcstage.telus.com/en/mobility/configure/?product=samsung-galaxy-s10&sku=NLSSGS10WH128&INTCMP=tcom_pep_cta_config&linktype=pep\",\n        \"addOns\": [\n            {\n                \"id\": \"1091111\",\n                \"type\": \"PROMOTION\"\n            }\n        ],\n        \"manualFlow\": false,\n        \"sku\": \"LSSGS10WH128\",\n        \"portInRequest\": false\n    }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/item",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get cart with ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cece56df-48f6-429a-a341-68afd56eae58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"value": "{{session_token}}",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{host}}/cart/{{cartId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cart",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get count with cartId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cece56df-48f6-429a-a341-68afd56eae58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"value": "{{session_token}}",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{$guid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/cart/{{cartId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cart",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete last item from cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55de9773-7618-474c-bc70-6867696c2a44",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "on"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/item/{{lastItemIdAdded}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"item",
+								"{{lastItemIdAdded}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate entire cart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "province",
+								"type": "text",
+								"value": "on"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/validate",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55de9773-7618-474c-bc70-6867696c2a44",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "on"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count items",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "bc"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/count",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Legacy Checkout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b90274ca-4636-4dd4-b894-d7f6d9900df0",
+								"exec": [
+									"pm.environment.set(\"cartId\", pm.response.json().id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5e81877e-dd02-450b-91fa-777845b66b36",
+								"exec": [
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "t-oauth2-token",
+								"type": "text",
+								"value": "{{oauth2}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "https://unified-commerce-legacy-checkout-staging-unified-commerce.c1b9.telusdigital.openshiftapps.com/v2/checkout/{{cartId}}",
+							"protocol": "https",
+							"host": [
+								"unified-commerce-legacy-checkout-staging-unified-commerce",
+								"c1b9",
+								"telusdigital",
+								"openshiftapps",
+								"com"
+							],
+							"path": [
+								"v2",
+								"checkout",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Checkout",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"value": "{{session_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"account\": {\n        \"ban\": \"19528429\",\n        \"firstName\": \"test\",\n        \"lastName\": \"Vallieres\",\n        \"birthDate\": \"1969-12-31\",\n        \"shipping\": {\n            \"streetNumber\": \"192\",\n            \"streetName\": \"AB Cres\",\n            \"province\": \"AB\",\n            \"city\": \"Fort McMurray\",\n            \"postalCode\": \"T9K 2J2\",\n            \"notificationEmailAddress\": \"Falonvallieres@hotmail.com\",\n            \"notificationPhoneNumber\": \"(780) 881-7171\",\n            \"notificationLanguage\": \"EN\"\n        }\n    },\n    \"orders\": [\n        {\n            \"essCartIds\": {\n                \"shoppingCartId\": \"60263249\",\n                \"shoppingCartEsId\": \"ES60357022\"\n            },\n            \"reservedPhoneNumber\": \"4165559999\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cartId}}/post-checkout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"post-checkout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Prepare HS Cart",
+			"item": [
+				{
+					"name": "Create SHS Cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de8470a7-e6e7-4cc6-8f11-76b017189d2f",
+								"exec": [
+									"pm.test(\"response is ok\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"type": "text",
+								"value": "smart-home-security"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"answers\": {\n        \"doors\": 1,\n        \"windows\": 1,\n        \"floors\": 1,\n        \"hasGarage\": false,\n        \"hasPets\": false,\n        \"hallways\": 1,\n        \"stairways\": 1,\n        \"indoorCameras\": 3,\n        \"outdoorCameras\": 2,\n        \"controlHomeDoors\": 3\n    },\n    \"wants\": [\n        \"knowAboutBreakins\",\n        \"knowWhenDoorsWindowsAreOpen\",\n        \"knowAboutFire\",\n        \"seeWhatsHappeningInside\",\n        \"seeWhatsHappeningOutside\",\n        \"controlDoorLocks\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{proxy}}/api/plan/recommendation-v2",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"api",
+								"plan",
+								"recommendation-v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create FIFA Cart (non shs)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de8470a7-e6e7-4cc6-8f11-76b017189d2f",
+								"exec": [
+									"pm.test(\"response is ok\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"type": "text",
+								"value": "cart"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\t\"lpdsId\": \"3607216\",\n\t\t\"offer\": \"9153165459513785439\",\n\t\t\"qty\": 1,\n\t\t\"provisioningCode\": 3\n\t},\n\t{\n\t\t\"lpdsId\": \"3607216\",\n\t\t\"offer\": \"9151782494813699850\",\n\t\t\"qty\": 1,\n\t\t\"provisioningCode\": 3\n\t}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}/api/v2/cart/update",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"cart",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Compass Cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de8470a7-e6e7-4cc6-8f11-76b017189d2f",
+								"exec": [
+									"pm.test(\"response is ok\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"type": "text",
+								"value": "cart"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\"offer\": \"6Lh227Av0rLOvLAQix0O4o\",\n\t\"qty\": 1\n\t}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}/api/v2/cart/update",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"cart",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get HS Cart from Session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de8470a7-e6e7-4cc6-8f11-76b017189d2f",
+								"exec": [
+									"pm.test(\"response is ok\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"type": "text",
+								"value": "cart"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{proxy}}/api/v2/cart",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dc6dc62b-fff9-4376-998e-defec7a9c768",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "10a2f8f8-f007-4a2e-9354-dc68a1a03b9f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "OMNI Test Env",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "84a112e8-980a-4081-b295-90f9c87db134",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a19b357-9b04-4df2-ad4e-a9a76c67dc6a",
+								"exec": [
+									"const querystring = require('querystring')",
+									"const url = require('url')",
+									"",
+									"const parsedUrl = url.parse(request.url)",
+									"const authProxy = `${parsedUrl.protocol}//${parsedUrl.host}`",
+									"",
+									"const isPreProd = request.headers['t-sdf-env'] === 'preprod'",
+									"const pingFed = (isPreProd) ? 'https://telusidentity-pp.telus.com' : 'https://telusidentity.telus.com'",
+									"const loginPath = (isPreProd) ? '/oauth2-preprod/login' : '/oauth2/login'",
+									"",
+									"let username, password",
+									"if (pm.request.auth.basic) {",
+									"    password = pm.request.auth.basic.find(elm => elm.key === 'password').value",
+									"    username = pm.request.auth.basic.find(elm => elm.key === 'username').value",
+									"}",
+									"",
+									"pm.sendRequest({",
+									"    url: `${authProxy}${loginPath}`",
+									"}, (err, response) => {",
+									"    const pfCookie = response.headers.find(elm => elm.key === 'Set-Cookie')",
+									"    const pfValue = (pfCookie) ? pfCookie.value.split(';')[0] : undefined",
+									"    const m = response.text().match(new RegExp('/as/[a-zA-Z0-9]+/resume/as/authorization\\\\.ping\\\\?service_type=telus'))",
+									"    const action = (m) ? m[0] : undefined",
+									"    if (pfValue && action) {",
+									"        pm.sendRequest({",
+									"            url: `${pingFed}${action}`,",
+									"            method: 'POST',",
+									"            header: {",
+									"                'Content-Type': 'application/x-www-form-urlencoded',",
+									"                'Cookie': pfValue",
+									"            },",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: querystring.stringify({ IDToken1: username, IDToken2: password })",
+									"            }",
+									"        }, (err, response) => {",
+									"            getTokens()",
+									"        })",
+									"    }",
+									"})",
+									"",
+									"function getTokens() {",
+									"    pm.sendRequest(`${authProxy}/session/token`, (err, response) => {",
+									"        const json = response.json()",
+									"        console.log('session_token', json.token)",
+									"        pm.environment.set('session_token', json.token)",
+									"        ",
+									"    })",
+									"",
+									"    pm.sendRequest(`${authProxy}/authentication/token`, (err, response) => {",
+									"        const json = response.json()",
+									"        console.log('oauth2', json.token)",
+									"        pm.environment.set('oauth2', json.token)",
+									"        pm.test(\"oauth2 is valid\", () => {",
+									"            pm.expect(json.token).to.not.be.undefined",
+									"        })",
+									"    })",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "t-sdf-env",
+								"value": "preprod",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{proxy}}/version",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new empty cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b90274ca-4636-4dd4-b894-d7f6d9900df0",
+								"exec": [
+									"pm.environment.set(\"cartId\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5e81877e-dd02-450b-91fa-777845b66b36",
+								"exec": [
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							},
+							{
+								"key": "province",
+								"value": "on",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"value": "{{session_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "customer-type",
+								"value": "CONSUMER",
+								"type": "text"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth2}}",
+								"type": "text"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{correlation_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{proxy}}/tallboy",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"tallboy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add phone to cart (Activation)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e27f14b-1d02-4d2e-8291-30d9a6a3bf75",
+								"exec": [
+									"pm.environment.set(\"recent_item\",pm.response.json().data.itemId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "bc"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"PHONE\",\n    \"context\": {\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"ACTIVATION\",\n        \"orderSubType\": \"NEW\",\n        \"sku\": \"LSSN960BE\",\n        \"bringItBack\": false,\n        \"deviceType\": \"phones\",\n        \"salesTransactionId\": \"20190227162157547cc547b1d8f6041ba9d9977b83926b3b0\",\n        \"correlationId\": \"ce5ed914-4506-4dae-98d0-49907c09b54a\",\n        \"offerId\": \"1016899\",\n        \"planId\": \"0POM6GBC\",\n        \"simSku\": \"HGDSIM3\",\n        \"term\": 24,\n        \"role\": \"NEW\",\n        \"editUrl\": \"https://www.wcstage.telus.com/en/bc/business/build-your-order\",\n        \"addOns\": []\n    }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tallboy/{{cart_Id}}/item",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cart_Id}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add phone to cart (Renewal)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e27f14b-1d02-4d2e-8291-30d9a6a3bf75",
+								"exec": [
+									"pm.environment.set(\"recent_item\",pm.response.json().data.itemId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9a5f80d5-894a-43c1-8d76-0c514f04d9aa",
+								"exec": [
+									"const phoneNum = Math.floor((Math.random()*10000000000) + 1).toString().padEnd(10,'0')",
+									"pm.environment.set(\"phoneNum\",phoneNum);",
+									"const str = pm.request.body.raw;",
+									"const i = str.indexOf('{{phoneNum}}')",
+									"const firstHalf = str.slice(0,i)",
+									"const secondHalf = str.slice(i+12, str.length)",
+									"const req = firstHalf + phoneNum + secondHalf;",
+									"pm.request.body.raw = req;",
+									"console.log(\"pm.request: \", pm.request.body.raw)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "on"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth2}}",
+								"type": "text"
+							},
+							{
+								"key": "API_KEY",
+								"value": "173decaa-bd75-4523-b9db-f7b3237c2e3d",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{correlation_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"PHONE\",\n    \"context\": {\n        \"ban\": \"70881193\",\n        \"sub\": \"4161498331\",\n        \"accountType\": \"I\",\n        \"accountSubType\": \"R\",\n        \"orderType\": \"RENEWAL\",\n        \"bringItBack\": false,\n        \"deviceType\": \"phones\",\n        \"salesTransactionId\": \"202002111453241144111ed07926a457d967f9aa1e955e1ab\",\n        \"correlationId\": \"3522856e-6044-4184-97a4-88c0f28d90fd\",\n        \"offerId\": \"1012954\",\n        \"planId\": \"XPMB10GB\",\n        \"simSku\": \"TTRISIM\",\n        \"term\": 24,\n        \"role\": \"EXISTING\",\n        \"editUrl\": \"https://www.wcstage.telus.com/en/mobility/configure/?product=iphone-xs-max&sku=NLAIXSM64GBGL&INTCMP=tcom_pep_cta_config&linktype=pep\",\n        \"addOns\": [],\n        \"manualFlow\": false,\n        \"sku\": \"LSSN960BE\",\n        \"portInRequest\": false\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{proxy}}/tallboy/{{cartId}}/item",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch fulfillment for omni",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bddce6e7-5f93-4541-9428-cc795c2a22a5",
+								"exec": [
+									"const itemToReserve = pm.response.json().items[0];",
+									"console.log(\"itemToReserve: \", itemToReserve)",
+									"const externalId = itemToReserve.system.essItemId;",
+									"const mobilityProduct = itemToReserve.items.find(product => product.category === 'MOBILITY_PHONE');",
+									"const productCd = mobilityProduct.productOffering.id;",
+									"const locationId = itemToReserve.fulfillment.storeInformation.storeId;",
+									"const ban = itemToReserve.account.ban;",
+									"const phone = itemToReserve.account.sub;",
+									"const language = pm.response.json().language;",
+									"const firstName = 'FirstName';",
+									"const lastName = 'LastName';",
+									"const email = 'email@telus.com';",
+									"const appId = 'UPC';",
+									"const userId = 'UPC';",
+									"const quantity = 1;",
+									"const statusCd = 'NEW';",
+									"const characteristicsTypeCodes = {",
+									"    FIRST_NAME: firstName,",
+									"    LAST_NAME: lastName,",
+									"    EMAIL: email,",
+									"    BAN: ban,",
+									"    LANGUAGE_CD: language,",
+									"    PHONE_NUMBER: phone",
+									"}",
+									"const characteristics = [];",
+									"Object.keys(characteristicsTypeCodes).forEach((key) => {",
+									"characteristics.push({",
+									"  characteristicTypeCode: key,",
+									"  characteristicValue: characteristicsTypeCodes[key]",
+									"})",
+									"})",
+									"const csrRequestPayload = Object.assign({}, {",
+									"    externalId,",
+									"    productCd,",
+									"    locationId,",
+									"    appId,",
+									"    userId,",
+									"    quantity,",
+									"    statusCd,",
+									"    characteristics",
+									"})",
+									"pm.environment.set(\"csrRequestPayload\", JSON.stringify(csrRequestPayload));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth2}}",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"value": "{{session_token}}",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{correlation_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"method\": \"IN_STORE\",\n  \"deferPayment\": true,\n  \"storeId\": \"10369847\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{proxy}}/cart/{{cartId}}/item/{{recent_item}}/fulfillment",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"cart",
+								"{{cartId}}",
+								"item",
+								"{{recent_item}}",
+								"fulfillment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get cart with ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cece56df-48f6-429a-a341-68afd56eae58",
+								"exec": [
+									"pm.environment.set(\"recent_item\",pm.response.json().items[0].id);",
+									"",
+									"const firstItem = pm.response.json().items[0];",
+									"const stockReservationOrderId = pm.environment.get(\"stockReservationOrderId\"); ",
+									"const province = pm.response.json().province;",
+									"const orderType = firstItem.productOrder.type;",
+									"const { account } = firstItem;",
+									"const shoppingCartId = firstItem.system.essCartId;",
+									"const mobWarranty = firstItem.items.find(item => item.category === 'MOBILITY_WARRANTY');",
+									"const salesTransactionId = firstItem.system.salesTransactionId;",
+									"",
+									"pm.environment.set(\"salesTransactionId\", salesTransactionId);",
+									"",
+									"const rsoRequestPayload = Object.assign({}, {",
+									"    province,",
+									"    orderType,",
+									"    account,",
+									"    shoppingCartId,",
+									"    stockReservationOrderId",
+									"});",
+									"if (mobWarranty) {",
+									"    rsoRequestPayload.warranty = {};",
+									"    rsoRequestPayload.warranty.planCode = mobWarranty.system.planCode;",
+									"    rsoRequestPayload.warranty.warrantyCode = mobWarranty.productOffering.id;",
+									"}",
+									"pm.environment.set(\"rsoPayLoad\", JSON.stringify(rsoRequestPayload));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"value": "{{session_token}}",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{correlation_id}}",
+								"type": "text"
+							},
+							{
+								"key": "t-oauth2-token",
+								"value": "{{oauth2}}",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{correlation_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{proxy}}/cart/{{cartId}}",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"cart",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CSR call",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da3536cc-bfe7-4b2e-b4cf-65c3d00d2fb3",
+								"exec": [
+									"pm.environment.set(\"stockReservationOrderId\",pm.response.json().id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "application/gzip",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-sdf-env",
+								"value": "preprod",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{correlation_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{csrRequestPayload}}"
+						},
+						"url": {
+							"raw": "http://auth-proxy-test:5001/ngsdf/rest/v1/channelStockReservation_vs0/stockReservation",
+							"protocol": "http",
+							"host": [
+								"auth-proxy-test"
+							],
+							"port": "5001",
+							"path": [
+								"ngsdf",
+								"rest",
+								"v1",
+								"channelStockReservation_vs0",
+								"stockReservation"
+							]
+						},
+						"description": "CSR call"
+					},
+					"response": []
+				},
+				{
+					"name": "RSO call",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "correlation-id",
+								"value": "{{correlation_id}}",
+								"type": "text"
+							},
+							{
+								"key": "Sales-Transaction-ID",
+								"value": "{{salesTransactionId}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{rsoTestKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{rsoPayLoad}}"
+						},
+						"url": {
+							"raw": "https://mobility-service-test-mobility-service.c1b9.telusdigital.openshiftapps.com/v1/orders/reserve",
+							"protocol": "https",
+							"host": [
+								"mobility-service-test-mobility-service",
+								"c1b9",
+								"telusdigital",
+								"openshiftapps",
+								"com"
+							],
+							"path": [
+								"v1",
+								"orders",
+								"reserve"
+							]
+						},
+						"description": "RSO call"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55de9773-7618-474c-bc70-6867696c2a44",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "province",
+								"type": "text",
+								"value": "on"
+							},
+							{
+								"key": "language",
+								"type": "text",
+								"value": "en"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "t-session-token",
+								"type": "text",
+								"value": "{{session_token}}"
+							},
+							{
+								"key": "t-target",
+								"value": "unified-cart-v1",
+								"type": "text"
+							},
+							{
+								"key": "correlation-id",
+								"value": "{{correlation_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{proxy}}/tallboy/{{cartId}}",
+							"host": [
+								"{{proxy}}"
+							],
+							"path": [
+								"tallboy",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get cart with ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cece56df-48f6-429a-a341-68afd56eae58",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "t-target",
+						"value": "unified-cart-v1",
+						"type": "text"
+					},
+					{
+						"key": "t-session-token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "correlation-id",
+						"value": "{{$guid}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PreCheckout HS Cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cece56df-48f6-429a-a341-68afd56eae58",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "t-target",
+						"type": "text",
+						"value": "unified-cart-v1"
+					},
+					{
+						"key": "t-session-token",
+						"type": "text",
+						"value": "{{session_token}}"
+					},
+					{
+						"key": "correlation-id",
+						"type": "text",
+						"value": "{{$guid}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hs\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}/pre-checkout",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}",
+						"pre-checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch fulfillment for omni",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "t-target",
+						"value": "unified-cart-v1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t\t\"method\": \"IN_STORE\",\n\t\t\"deferPayment\":false,\n\t\t\"storeId\": \"22953\"\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}/item/{{recent_item}}/fulfillment",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}",
+						"item",
+						"{{recent_item}}",
+						"fulfillment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH Upstream",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "t-target",
+						"type": "text",
+						"value": "unified-cart-v1"
+					},
+					{
+						"key": "t-session-token",
+						"value": "{{session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ess\": {\n\t\t\"orderStatus\": \"reserved\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}/upstream",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}",
+						"upstream"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get API health status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cece56df-48f6-429a-a341-68afd56eae58",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "t-target",
+						"value": "unified-cart-v1",
+						"type": "text"
+					},
+					{
+						"key": "t-session-token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "correlation-id",
+						"value": "{{$guid}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/health",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04a07f71-1606-4411-98ff-8fb5e5ddfcb2",
+						"exec": [
+							"pm.environment.set(\"session_token\", pm.response.json().token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{proxy}}/session/token/new",
+					"host": [
+						"{{proxy}}"
+					],
+					"path": [
+						"session",
+						"token",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get version",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "t-target",
+						"type": "text",
+						"value": "unified-cart-v1"
+					},
+					{
+						"key": "t-session-token",
+						"type": "text",
+						"value": "{{session_token}}"
+					},
+					{
+						"key": "correlation-id",
+						"type": "text",
+						"value": "{{$guid}}"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/version",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"version"
+					]
+				},
+				"description": "Health check for dependencies of the API."
+			},
+			"response": []
+		},
+		{
+			"name": "Get count with cartId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cece56df-48f6-429a-a341-68afd56eae58",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "t-target",
+						"value": "unified-cart-v1",
+						"type": "text"
+					},
+					{
+						"key": "t-session-token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "correlation-id",
+						"value": "{{$guid}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an empty consumer cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "716cd0fc-bb08-4a27-9ba1-a8cb992f88ad",
+						"exec": [
+							"pm.environment.set(\"cartId\", pm.response.json().id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "t-target",
+						"type": "text",
+						"value": "unified-cart-v1"
+					},
+					{
+						"key": "t-session-token",
+						"type": "text",
+						"value": "{{session_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "correlation-id",
+						"type": "text",
+						"value": "{{$guid}}"
+					},
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": "en"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"province\": \"ON\",\n  \"customerType\": \"CONSUMER\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/cart",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an empty cart without customerType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "716cd0fc-bb08-4a27-9ba1-a8cb992f88ad",
+						"exec": [
+							"pm.environment.set(\"cartId\", pm.response.json().id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "t-target",
+						"type": "text",
+						"value": "unified-cart-v1"
+					},
+					{
+						"key": "t-session-token",
+						"type": "text",
+						"value": "{{session_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "correlation-id",
+						"type": "text",
+						"value": "{{$guid}}"
+					},
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": "en"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"province\": \"ON\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/cart",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an empty epp cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "716cd0fc-bb08-4a27-9ba1-a8cb992f88ad",
+						"exec": [
+							"pm.environment.set(\"cartId\", pm.response.json().id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "t-target",
+						"type": "text",
+						"value": "unified-cart-v1"
+					},
+					{
+						"key": "t-session-token",
+						"type": "text",
+						"value": "{{session_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "correlation-id",
+						"type": "text",
+						"value": "{{$guid}}"
+					},
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": "en"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"province\": \"ON\",\n  \"customerType\": \"EPP\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/cart",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add phone with ADD ON to epp cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "province",
+						"type": "text",
+						"value": "bc"
+					},
+					{
+						"key": "language",
+						"type": "text",
+						"value": "en"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "t-session-token",
+						"type": "text",
+						"value": "{{session_token}}"
+					},
+					{
+						"key": "t-oauth2-token",
+						"value": "{{oauth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"PHONE\",\n  \"context\": {\n    \"rcid\": \"0005436943\",\n    \"accountType\": \"C\",\n    \"accountSubType\": \"E\",\n    \"orderType\": \"ACTIVATION\",\n    \"bringItBack\": true,\n    \"deviceType\": \"phones\",\n    \"salesTransactionId\": \"20191217151924207a3abd78c462e4bd9ad8c1ead0fc1d8d4\",\n    \"correlationId\": \"0a409629-de00-4c20-8731-002be239bc6e\",\n    \"offerId\": \"1103411\",\n    \"planId\": \"XPEPP10GB\",\n    \"simSku\": \"TTRISIM\",\n    \"term\": 24,\n    \"role\": \"NEW\",\n    \"editUrl\": \"https://www.telus.com/en/mobility/configure/?product=iphone-11-pro&CMP=EMC_MOBEPP\",\n    \"addOns\": [\n      {\n        \"id\": \"1092293\",\n        \"type\": \"PROMOTION\"\n      },\n      {\n        \"id\": \"1105068\",\n        \"type\": \"PROMOTION\",\n        \"selectedCoupon\": {\n          \"id\": \"EPP-SPECIAL\",\n          \"validationCode\": \"1QAZUBQJ3DK\"\n        }\n      },\n      {\n        \"id\": \"1090895\",\n        \"type\": \"PROMOTION\"\n      },\n      {\n        \"id\": \"1105415\",\n        \"type\": \"PROMOTION\"\n      },\n      {\n        \"id\": \"1106604\",\n        \"type\": \"PROMOTION\"\n      },\n      {\n        \"id\": \"XSCNFE0A\",\n        \"type\": \"CONNECTION_FEE\"\n      },\n      {\n        \"id\": \"XSD10GEPP\",\n        \"type\": \"MOBILITY_ADD_ON\"\n      },\n      {\n        \"type\": \"WARRANTY\",\n        \"sku\": \"AC_PLUS_TIER5\",\n        \"planCode\": \"120\"\n      }\n    ],\n    \"manualFlow\": false,\n    \"couponId\": \"EPP-SPECIAL-PROMO\",\n    \"validationCode\": \"0DINPEWRA3M\",\n    \"sku\": \"LAIP11P64GR\",\n    \"portInRequest\": false,\n    \"jwt\": \"eyJjcml0IjpbImV4cCIsImF1ZCJdLCJhbGciOiJSUzUxMiJ9.eyJwYXlsb2FkIjp7ImN1c3RvbWVyVHlwZSI6ImVwcCIsInJjaWQiOiIwMDA1NDM2OTQzIiwicHJvbW9Db2RlIjoiRVBQLVNQRUNJQUwiLCJwcm9tb1ZhbGlkYXRpb25Db2RlIjoiMVFBWlVCUUozREsiLCJjb3Vwb25Db2RlIjoiRVBQLVNQRUNJQUwtUFJPTU8iLCJjb3Vwb25WYWxpZGF0aW9uQ29kZSI6IjBESU5QRVdSQTNNIiwic2FsZXNSZXBJZCI6InRlc3QxMjMiLCJvdXRsZXRJZCI6InRlc3QxMjMiLCJvcmdhbml6YXRpb25OYW1lIjoiRVBQIFRlc3RlciIsImV4aXN0aW5nTW9iaWxpdHlDdXN0b21lciI6ZmFsc2UsImNoYW5uZWxJZCI6Ik1PQklMRUFYUyIsIm1hbnVhbEZsb3ciOmZhbHNlfSwiaXNzIjoiVGVsdXMgRGlnaXRhbCIsImlhdCI6MTU3NjYxMzc4NiwiZXhwIjoxNTc2NjIwOTg2fQ.HZFOoVXTsgC6cKy5jJbdkmyvVC6YuA3t0rG8k3g1vFBmT99Cc1SpW04JH1BlXQD6jqWpQ1ws7cyD7otKQ-rDbYLvyGP8zCrFqBa_4XSh74dpOQFy7jxaElT-11AQOEmMFDWFr_Btp4Mm1ugTViAky-6RurPPruQHkUyNAMxFlz_PeUkqeSWxnunmRPlcTHsppvwKGZr1RrjoGLers4fFu3cR17WO2fp5ZbQ25-rK2OtFYZcCu0-hHrdllwf3cA1OfXv3iph3AznJ6Kgyiw1cocfg7bC0zLhBsTChGRInRWkVWetIZa76XRIM7QAJbthydC_oEsMjY07R4E8rOl2iGOezSkhUjZeqDARVao-nk-XPl3gBYf1cgC3TdpE3nQo5-3Aq_dPtiLOH_msVENHWcnwOjmvmQcDVn1KhNMT6yS7uMQcgN9Nabvppx8kDXpIa6SWmeVICo3M5nYWAaARaY4E1w9WdhWPgsOf4_TpsC0DEZCWKLbnby3x37rwdBM_AWGNYipELtOZ2QFAhsqpY1qw4dPAXsXlTjIE4ZVTc3pRmbH3xRZylkZWq8PBg9vNFIlqCbmIWlj_sPQn6ubIN60UoVOL1l-krdUAc3sPyhndDtaO-fsm0DEPBkO2HyT-rGMhnwGncRil75etEgYCT1-pAlJZAFJD9yH_5F3qf3nU\"\n  }\n}"
+				},
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}/item",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}",
+						"item"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete items (HS)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "t-session-token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "t-target",
+						"value": "unified-cart-v1",
+						"type": "text"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "province",
+						"value": "on",
+						"type": "text"
+					},
+					{
+						"key": "language",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "t-oauth2-token",
+						"value": "{{oauth2}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"id\": \"9154987202313926871-1\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}/items",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Customer",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "t-session-token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "t-target",
+						"value": "unified-cart-v1",
+						"type": "text"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "province",
+						"value": "on",
+						"type": "text"
+					},
+					{
+						"key": "language",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "t-oauth2-token",
+						"value": "{{oauth2}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lineOfBusiness\":\"HS\",\n\t\"type\":\"I\",\n\t\"subType\":\"R\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}/customer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Carts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "t-target",
+						"value": "unified-cart-1",
+						"type": "text"
+					},
+					{
+						"key": "t-session-token",
+						"value": "{{session_token}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hs\":true,\n\t\"mob\":false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/cart/{{cartId}}/reset",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"cart",
+						"{{cartId}}",
+						"reset"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
