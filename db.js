@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const redis = require('redis')
 const logger = require('./utils/logger');
+const config = require('./config')
 
 class DbInit {
   async init() {
@@ -10,7 +11,8 @@ class DbInit {
 
   connectRedis() {
     return new Promise((resolve, reject) => {
-      const redisClient = redis.createClient('redis://redis:6379')
+      const url = `${config.redis.connectionString}:${config.redis.port}`
+      const redisClient = redis.createClient(url)
       redisClient.on('ready', () => {
         this.redis = redisClient
         logger.db.info('Connected to redis cache')
@@ -25,12 +27,12 @@ class DbInit {
 
   connectMongo() {
     return new Promise((resolve, reject) => {
-      const url = 'mongodb://mongo:27017'
+      const url = `${config.mongodb.connectionString}:${config.mongodb.port}`
       const mongoClient = new MongoClient(url, { useNewUrlParser: true })
       mongoClient.connect((err) => {
         if (!err) {
-          this.mongoDb = mongoClient.db('fuel-eye')
-          logger.db.info('Connected to database - fueleye')
+          this.mongoDb = mongoClient.db(config.mongodb.dbName)
+          logger.db.info(`Connected to database - ${config.mongodb.dbName}`)
           process.on('SIGINT', () => {
             MongoClient.close();
           })

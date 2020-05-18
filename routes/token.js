@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const respond = require('../utils/respond'); //responder (formats and sends the appropriate response codes and responses to the client)
-const dbops = require('../dbops'); //database operations
+const userService = require('../services/userService'); //database operations
 const getToken = require('../utils/token-generator'); //JWT token generator
 
 module.exports = ({ db, redis, passport } = handles) => {
@@ -19,7 +19,7 @@ module.exports = ({ db, redis, passport } = handles) => {
 
   // temporary token
   router.post('/temporary', async (req, res, next) => {
-    const getUser = await dbops.getUser(db, req.body.email);
+    const getUser = await userService.getUser(db, req.body.email);
     if (getUser.success) {
       respond.success(res, {
         token: getToken({

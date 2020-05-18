@@ -13,7 +13,7 @@ services:
       - "3000:3000"
       - "9229:9229"
   mongo:
-    container_name: mongo
+    container_name: cloud-auth-mongo
     image: mongo
     volumes:
       - ./data:/data/db
@@ -21,7 +21,7 @@ services:
       - "27017:27017"
   redis:
     image: redis
-    container_name: redis
+    container_name: cloud-auth-redis
     ports:
      - "8123:6379"
      

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const respond = require('../utils/respond'); //responder (formats and sends the appropriate response codes and responses to the client)
 const adapter = require('../adapter'); //data adapter
-const dbops = require('../dbops'); //database operations
+const userService = require('../services/userService'); //database operations
 const getToken = require('../utils/token-generator'); //JWT token generator
 const { check, validationResult } = require('express-validator');
 
@@ -13,7 +13,7 @@ module.exports = ({ db, redis, passport } = handles) => {
       session: false
     }),
     async (req, res, next) => {
-      const dbresults = await dbops.insertUser(
+      const dbresults = await userService.insertUser(
         db,
         Object.assign(
           {
@@ -37,7 +37,7 @@ module.exports = ({ db, redis, passport } = handles) => {
       if (typeof users === 'string') {
         users = new Array(users);
       }
-      const dbResults = await dbops.deleteSubUsers(db, users, req.user);
+      const dbResults = await userService.deleteSubUsers(db, users, req.user);
       if (dbResults.success) {
         respond.success(res, dbResults.data);
       } else {
@@ -53,7 +53,7 @@ module.exports = ({ db, redis, passport } = handles) => {
       session: false
     }),
     async (req, res, next) => {
-      const dbResults = await dbops.getSubUsers(db, req.user.id);
+      const dbResults = await userService.getSubUsers(db, req.user.id);
       if (dbResults.success) {
         respond.success(res, {
           users: dbResults.data

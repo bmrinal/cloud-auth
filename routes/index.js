@@ -1,13 +1,12 @@
-const router = require('express').Router()
+const router = require('express-promise-router')()
 
 //application routes
 const user = require('./user')
 const subUser = require('./subUser')
 const token = require('./token')
 
-module.exports = () => {
-  router.use('/user', user())
-  router.use('/user/sub', subUser)
-  router.use('/token', token)
-  return router
-}
+router.use('/user', user)
+router.use('/user/sub', subUser)
+router.use('/token', token)
+module.exports = router
+

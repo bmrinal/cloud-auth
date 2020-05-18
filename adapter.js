@@ -5,8 +5,8 @@ module.exports = {
       password: data.password || '',
       email: data.email || '',
       roles: data.roles || [],
-      firstname: data.firstname || '',
-      lastname: data.lastname || '',
+      firstName: data.firstName || '',
+      lastName: data.lastName || '',
       contactNumber: data.contactNumber || '',
       designation: data.designation || ''
     };
