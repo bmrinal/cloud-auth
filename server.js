@@ -4,11 +4,7 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const db = require('./db')
 
-//passport strategies
-const localStrategy = require('./passport-strategies/local') //localstrategy
-const tokenStrategy = require('./passport-strategies/unique-token') // tokenstrategy
-passport.use(localStrategy())
-passport.use(tokenStrategy())
+
 
 //custom middlewares
 const requestLogger = require('./middlewares/requestLogger')
@@ -25,12 +21,24 @@ app.use(bodyParserErrors) //handles JSON parsing errors
 app.use(requestLogger)
 
 
+
+const initiatePassport = () => {
+  //passport strategies
+  const localStrategy = require('./passport-strategies/local') //localstrategy
+  const tokenStrategy = require('./passport-strategies/unique-token') // tokenstrategy
+  //attaching middlewares
+  passport.use(localStrategy())
+  passport.use(tokenStrategy())
+}
+
 const start = async () => {
   await db.init()
+  initiatePassport()
   //routes
   const routes = require('./routes')
   app.use('/', routes)
   app.use(errorHandler)
+
   app.listen(port, () => console.log(`Auth service running on port ${port}`))
 }
 start()

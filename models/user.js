@@ -1,19 +1,25 @@
 const Joi = require('@hapi/joi')
+const { v4: uuidv4 } = require('uuid')
+const modelHelpers = require('../utils/modelHelpers')
 const { validate } = require('../utils/modelHelpers')
+ObjectID = require('mongodb').ObjectID
+
 const schema = Joi.object({
-    username: Joi.string(),
-    password: Joi.string().required().min(7).alphanum(),
+    _id: Joi.optional(),
+    username: Joi.string().allow(null),
+    password: Joi.string().required().min(4),
     email: Joi.string().required().email(),
     roles: Joi.array().default([]),
-    firstName: Joi.string(),
-    lastName: Joi.string(),
-    contactNumber: Joi.string().regex(/^(\(\d{3}\) |\d{3}-)\d{3}-\d{4}$/),
-    designation: Joi.string()
+    firstName: Joi.string().allow(null),
+    lastName: Joi.string().allow(null),
+    contactNumber: Joi.string().allow(null).regex(/^(\(\d{3}\) |\d{3}-)\d{3}-\d{4}$/),
+    designation: Joi.string().allow(null)
 })
 
 class UserModel {
     constructor(options) {
         const {
+            _id = uuidv4(),
             username,
             password,
             email,
@@ -23,7 +29,7 @@ class UserModel {
             contactNumber,
             designation
         } = validate(schema, options)
-
+        this._id = _id
         this.username = username
         this.password = password
         this.email = email
@@ -35,16 +41,17 @@ class UserModel {
     }
     get data() {
         const { username, email, roles, firstName, lastName, contactNumber, designation, _id: id } = this
-        return {
+        const toClient = modelHelpers.removeNulls({
+            id,
             username,
             email,
             roles,
             firstName,
             lastName,
             contactNumber,
-            designation,
-            id
-        }
+            designation
+        })
+        return toClient
     }
 }
 module.exports = UserModel

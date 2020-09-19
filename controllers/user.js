@@ -1,15 +1,21 @@
 const UserModel = require('../models/user')
 const userService = require('../services/userService'); //database operations
-
 const getToken = require('../utils/token-generator'); //JWT token generator
 
 
 class UserController {
+  
   async signup(req, res) {
     const userModel = new UserModel(req.body)
     const user = await userService.insertUser(userModel)
     res.json(user)
-  } 
+  }
+
+  async login(req, res) {
+    const user = new UserModel(req.user)
+    res.json(user.data)
+  }
+
 }
 module.exports = new UserController()
 

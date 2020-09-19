@@ -32,7 +32,7 @@ module.exports = ({ db, redis, passport } = handles) => {
     passport.authenticate('token', {
       session: false
     }),
-    async (req, res, next) => {
+    async (req, res) => {
       let users = req.body.userid || req.body.userids;
       if (typeof users === 'string') {
         users = new Array(users);

@@ -2,32 +2,22 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const { mongoDb: db } = require('../db')
 
+
 module.exports = () => {
   return new LocalStrategy(
     {
       usernameField: 'email'
     },
-    (username, password, done) => {
-      db.collection('users').findOne({ email: username }, (err, user) => {
-        if (err) {
-          return done(err);
-        }
-        if (!user) {
-          return done(null, false, 'Incorrect username/password');
-        }
-
-        bcrypt.compare(password, user.password, (err, res) => {
-          if (err) {
-            return done(null, false, 'Incorrect username/password');
-          } else {
-            if (res) {
-              return done(null, user);
-            } else {
-              return done(null, false, 'Incorrect username/password');
-            }
-          }
-        });
-      });
+    async (username, password, done) => {
+      const user = await db.collection('users').findOne({ email: username })
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username/password' })
+      }
+      const passwordsMatch = await bcrypt.compare(password, user.password)
+      if (!passwordsMatch) {
+        return done(null, false, { message: 'Incorrect username/password' })
+      }
+      return done(null, user)
     }
-  );
-};
+  )
+}
