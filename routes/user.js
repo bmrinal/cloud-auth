@@ -4,7 +4,7 @@ const validations = require('../validations')
 const passport = require('passport')
 
 router.post('/signup', controller.signup)
-router.post('/login', passport.authenticate('local', { session: false }), controller.login)
+router.post('/login', controller.login)
 
 // router.post(
 //   '/signin',

@@ -11,11 +11,11 @@ module.exports = () => {
     async (username, password, done) => {
       const user = await db.collection('users').findOne({ email: username })
       if (!user) {
-        return done(null, false, { message: 'Incorrect username/password' })
+        return done(null, false)
       }
       const passwordsMatch = await bcrypt.compare(password, user.password)
       if (!passwordsMatch) {
-        return done(null, false, { message: 'Incorrect username/password' })
+        return done(null, false)
       }
       return done(null, user)
     }

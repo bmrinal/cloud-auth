@@ -8,12 +8,10 @@ class UserService {
         const existingEmails = await db
             .collection('users')
             .find({ email: user.email })
-            .count()
 
         const existingUsernames = await db
             .collection('users')
             .find({ username: user.username })
-            .count()
 
         if (existingEmails || (user.username && existingUsernames)) {
             logger.db.error(`User already exists -  ${user.email}`)
@@ -35,6 +33,7 @@ class UserService {
             throw new InternalError(err.message)
         }
     }
+
 }
 
 module.exports = new UserService()

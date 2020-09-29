@@ -1,7 +1,6 @@
 const Joi = require('@hapi/joi')
 const { v4: uuidv4 } = require('uuid')
-const modelHelpers = require('../utils/modelHelpers')
-const { validate } = require('../utils/modelHelpers')
+const { validate, removeNulls } = require('../utils/modelHelpers')
 ObjectID = require('mongodb').ObjectID
 
 const schema = Joi.object({
@@ -29,7 +28,7 @@ class UserModel {
             contactNumber,
             designation
         } = validate(schema, options)
-        this._id = _id
+        this._id=_id
         this.username = username
         this.password = password
         this.email = email
@@ -41,7 +40,7 @@ class UserModel {
     }
     get data() {
         const { username, email, roles, firstName, lastName, contactNumber, designation, _id: id } = this
-        const toClient = modelHelpers.removeNulls({
+        const toClient = removeNulls({
             id,
             username,
             email,

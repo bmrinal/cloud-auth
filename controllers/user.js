@@ -1,10 +1,15 @@
 const UserModel = require('../models/user')
 const userService = require('../services/userService'); //database operations
 const getToken = require('../utils/token-generator'); //JWT token generator
+const passport = require('passport')
+const bcrypt = require('bcryptjs');
+const { mongoDb: db } = require('../db')
+const { Unauthorized, InternalError } = require('../errors')
+
 
 
 class UserController {
-  
+
   async signup(req, res) {
     const userModel = new UserModel(req.body)
     const user = await userService.insertUser(userModel)
@@ -12,26 +17,24 @@ class UserController {
   }
 
   async login(req, res) {
-    const user = new UserModel(req.user)
-    res.json(user.data)
+    const { email, password } = req.body
+    const user = await db.collection('usersss').findOne({ email })
+    console.dir(user)
+    if (!user) {
+      throw new Unauthorized('Invalid username/password')
+    }
+    const passwordsMatch = await bcrypt.compare(password, user.password)
+    if (!passwordsMatch) {
+      throw new Unauthorized('Invalid username/password')
+    }
+    const userToClient = new UserModel(user)
+    res.json(userToClient.data)
   }
-
 }
 module.exports = new UserController()
 
 // module.exports = {
 
-//   signin: () => (req, res) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.status(422).json({
-//         errors: errors.array()
-//       });
-//     }
-//     respond.success(res, {
-//       token: getToken(req.user)
-//     });
-//   },
 //   signout: redis => (req, res) => {
 //     redis.del(req.user.token, (err, reply) => {
 //       if (!err) {

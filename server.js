@@ -1,9 +1,10 @@
 const app = require('express')()
+// require('express-async-errors')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const db = require('./db')
-
+const { InternalError } = require('./errors')
 
 
 //custom middlewares
@@ -31,9 +32,11 @@ const initiatePassport = () => {
   passport.use(tokenStrategy())
 }
 
+
 const start = async () => {
   await db.init()
   initiatePassport()
+
   //routes
   const routes = require('./routes')
   app.use('/', routes)
