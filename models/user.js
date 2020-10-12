@@ -1,6 +1,7 @@
 const Joi = require('@hapi/joi')
 const { v4: uuidv4 } = require('uuid')
-const { validate, removeNulls } = require('../utils/modelHelpers')
+const { removeNulls } = require('../utils/modelHelpers')
+const schemaValidator = require('../utils/schemaValidator')
 ObjectID = require('mongodb').ObjectID
 
 const schema = Joi.object({
@@ -27,8 +28,8 @@ class UserModel {
             lastName,
             contactNumber,
             designation
-        } = validate(schema, options)
-        this._id=_id
+        } = schemaValidator(schema, options)
+        this._id = _id
         this.username = username
         this.password = password
         this.email = email

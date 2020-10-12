@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const redis = require('redis')
+const asyncRedis = require("async-redis")
 const logger = require('./utils/logger');
 const config = require('./config')
 
@@ -12,7 +13,7 @@ class DbInit {
   connectRedis() {
     return new Promise((resolve, reject) => {
       const url = `${config.redis.connectionString}:${config.redis.port}`
-      const redisClient = redis.createClient(url)
+      const redisClient = asyncRedis.createClient(url)
       redisClient.on('ready', () => {
         this.redis = redisClient
         logger.db.info('Connected to redis cache')

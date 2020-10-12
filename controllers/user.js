@@ -1,13 +1,8 @@
 const UserModel = require('../models/user')
-const userService = require('../services/userService'); //database operations
-const getToken = require('../utils/token-generator'); //JWT token generator
-const passport = require('passport')
-const bcrypt = require('bcryptjs');
-const { mongoDb: db } = require('../db')
-const { Unauthorized, InternalError } = require('../errors')
-
-
-
+const userService = require('../services/userService')
+const authService = require('../services/authService')
+const signinSchema = require('../schemas/signin')
+const schemaValidator = require('../utils/schemaValidator')
 class UserController {
 
   async signup(req, res) {
@@ -17,21 +12,22 @@ class UserController {
   }
 
   async login(req, res) {
-    const { email, password } = req.body
-    const user = await db.collection('usersss').findOne({ email })
-    console.dir(user)
-    if (!user) {
-      throw new Unauthorized('Invalid username/password')
-    }
-    const passwordsMatch = await bcrypt.compare(password, user.password)
-    if (!passwordsMatch) {
-      throw new Unauthorized('Invalid username/password')
-    }
-    const userToClient = new UserModel(user)
-    res.json(userToClient.data)
+    const validatedLoginData = schemaValidator(signinSchema, req.body)
+    const userWithToken = await authService.login(validatedLoginData)
+    res.json(userWithToken)
+  }
+
+  async delete(req, res) {
+    await userService.removeUser(req.email)
+    res.json({
+      status: "success"
+    })
   }
 }
 module.exports = new UserController()
+
+
+
 
 // module.exports = {
 

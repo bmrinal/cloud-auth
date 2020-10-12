@@ -34,6 +34,15 @@ class UserService {
         }
     }
 
+    async removeUser(email) {
+        try {
+            const test = await db.collection('users').deleteOne({ email })
+        } catch (err) {
+            logger.db.error(err)
+            throw new InternalError(err.message)
+        }
+    }
+
 }
 
 module.exports = new UserService()
